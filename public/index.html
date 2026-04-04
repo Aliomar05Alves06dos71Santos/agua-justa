@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>ÁGUA JUSTA ⚖️💧</title>
+
+<style>
+body{
+  font-family: Arial;
+  background:#0f172a;
+  color:#fff;
+  text-align:center;
+  padding:30px;
+}
+
+.container{
+  max-width:500px;
+  margin:auto;
+  background:#111827;
+  padding:20px;
+  border-radius:12px;
+}
+
+input{
+  width:90%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:8px;
+  border:none;
+}
+
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:#22c55e;
+  color:#000;
+  font-weight:bold;
+}
+
+.resultado{
+  margin-top:20px;
+  background:#1f2937;
+  padding:15px;
+  border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>⚖️💧 ÁGUA JUSTA</h1>
+  <p>Simulador de Conta de Água e Esgoto</p>
+
+  <input id="consumo" type="number" placeholder="Consumo em m³">
+
+  <button onclick="calcular()">Calcular</button>
+
+  <div id="resultado" class="resultado"></div>
+
+  <div id="feedback" style="margin-top:20px;"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
