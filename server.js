@@ -21,6 +21,13 @@ app.get('/', (req, res) => {
 app.post('/calcular', (req, res) => {
   const { consumo } = req.body;
 
+  // ✅ validação (corrigido)
+  if (!consumo || isNaN(consumo)) {
+    return res.status(400).json({
+      erro: "Consumo inválido"
+    });
+  }
+
   let valor = 0;
 
   if (consumo <= 10) valor = 20;
@@ -35,4 +42,4 @@ app.post('/calcular', (req, res) => {
 
 app.listen(PORT, () => {
   console.log('Servidor rodando na porta ' + PORT);
-});
+});//
