@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Água Justa ⚖️💧</title>
+
+<style>
+body { font-family: Arial; background:#eef6ff; padding:20px; }
+.container { max-width:850px; margin:auto; background:#fff; padding:20px; border-radius:10px; }
+
+input, select, button {
+width:100%;
+padding:10px;
+margin-top:10px;
+}
+
+button {
+background:#005fa3;
+color:white;
+border:none;
+cursor:pointer;
+font-weight:bold;
+}
+
+.card {
+margin-top:20px;
+padding:15px;
+border-radius:10px;
+}
+
+.ok { background:#d4edda; }
+.alert { background:#fff3cd; }
+.bad { background:#f8d7da; }
+
+a {
+color:#005fa3;
+font-weight:bold;
+text-decoration:none;
+}
+
+.small { font-size:13px; color:#666; margin-top:10px; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>💧 Água Justa ⚖️💧</h2>
+
+<p>Simulação de consumo, alerta e análise de cobrança</p>
+
+<label>Leitura inicial</label>
+<input id="li" type="number">
+
+<label>Leitura final</label>
+<input id="lf" type="number">
+
+<label>Moradores</label>
+<input id="m" type="number" value="1">
+
+<label>Desemprego (sim = 1 / não = 0)</label>
+<input id="desemprego" type="number" value="0">
+
+<label>Deficiência / vulnerabilidade (quantidade)</label>
+<input id="vuln" type="number" value="0">
+
+<label>Renda familiar (R$)</label>
+<input id="renda" type="number">
+
+<label>Data inicial</label>
+<input id="d1" type="date">
+
+<label>Data final</label>
+<input id="d2" type="date">
+
+<button onclick="calcular()">🔽 Calcular</button>
+<button onclick="window.print()">🔽 Gerar PDF</button>
+
+<div id="res" class="card ok" style="display:none;"></div>
+
+<hr>
+
+<p>
+🔓 Laudo completo (doação R$ 9,90):<br>
+<a target="_blank"
+href="https://www.mercadopago.com.br/checkout/v1/payment/redirect/061bfe07-374f-4550-8178-6fe3f7a8426b/payment-option-form/?preference-id=3326788566-6bcae007-2176-470b-8aaa-10433630382f">
+👉 Liberar Laudo Completo
+</a>
+</p>
+
+<p class="small">⚖️ Sistema informativo — análise estimativa</p>
+
+</div>
+
+<script>
+
+function calcular(){
+
+let li = +document.getElementById("li").value;
+let lf = +document.getElementById("lf").value;
+let m = +document.getElementById("m").value;
+let desemprego = +document.getElementById("desemprego").value;
+let vuln = +document.getElementById("vuln").value;
+let renda = +document.getElementById("renda").value;
+
+let d1 = new Date(document.getElementById("d1").value);
+let d2 = new Date(document.getElementById("d2").value);
+
+let dias = (d2 - d1) / (1000*60*60*24);
+if(dias <= 0 || isNaN(dias)) dias = 30;
+
+// CONSUMO
+let consumo = lf - li;
+if(consumo <= 0) consumo = m * 5;
+
+let consumoDia = (consumo / dias / m) * 1000;
+
+// STATUS CONSUMO
+let classe = "ok";
+let status = "🟢 Consumo normal";
+
+if(consumoDia > 150) { classe = "alert"; status = "🟡 Atenção no consumo"; }
+if(consumoDia > 250) { classe = "bad"; status = "🔴 Possível vazamento"; }
+
+// TARIFA SOCIAL (REGRA SIMPLES E REALISTA)
+let tarifaSocial = false;
+
+if(renda < 3000 || desemprego > 0 || vuln > 0){
+tarifaSocial = true;
+}
+
+// ALERTA ESGOTO
+let esgoto = consumo > 0 ? "⚠️ Verificar ligação de esgoto (possível cobrança indevida)" : "OK";
+
+// VALOR ESTIMADO SIMPLES
+let valorBase = consumo * 4.5;
+
+if(tarifaSocial){
+valorBase = valorBase * 0.6;
+}
+
+let div = document.getElementById("res");
+div.style.display = "block";
+div.className = "card " + classe;
+
+div.innerHTML = `
+📊 Consumo: <b>${consumo.toFixed(2)} m³</b><br><br>
+
+⚖️ Status: ${status}<br><br>
+
+💧 Consumo diário: ${consumoDia.toFixed(1)} L/dia<br><br>
+
+💰 Valor estimado: <b>R$ ${valorBase.toFixed(2)}</b><br><br>
+
+${tarifaSocial ? "🟢 Possível TARIFA SOCIAL identificada<br><br>" : ""}
+
+${esgoto}<br><br>
+
+🔒 Quer laudo completo técnico?<br>
+<a target="_blank"
+href="https://www.mercadopago.com.br/checkout/v1/payment/redirect/061bfe07-374f-4550-8178-6fe3f7a8426b/payment-option-form/?preference-id=3326788566-6bcae007-2176-470b-8aaa-10433630382f">
+👉 Liberar Laudo R$ 9,90
+</a>
+`;
+
+}
+
+</script>
+
+</body>
+</html>
