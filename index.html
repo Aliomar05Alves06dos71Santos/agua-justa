@@ -2,78 +2,80 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Instituto Água Justa ⚖️💧</title>
+<title>Água Justa ⚖️💧</title>
 
 <style>
-body { font-family: Arial; background:#e6f7ff; padding:20px;}
-.container { max-width:900px; margin:auto; background:white; padding:20px; border-radius:10px;}
+body { font-family: Arial; background:#eef6fb; padding:20px; }
+.container { max-width:1100px; margin:auto; background:white; padding:20px; border-radius:10px; }
 
-.pdv {
-background:#fff3cd;
-padding:12px;
-margin-bottom:15px;
-border-left:5px solid #ffc107;
-border-radius:8px;
-}
+h2 { margin-bottom:5px; }
+h3 { margin-top:25px; border-bottom:2px solid #ccc; padding-bottom:5px; }
 
-.grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px;}
-.campo { display:flex; flex-direction:column;}
+.grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+.campo { display:flex; flex-direction:column; }
 
-input, select { padding:8px;}
+input, select { padding:8px; }
 
 button {
-width:100%;
-padding:12px;
-margin-top:15px;
-background:#0077cc;
-color:white;
-border:none;
-cursor:pointer;
-border-radius:6px;
-font-weight:bold;
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  background:#0077cc;
+  color:white;
+  border:none;
+  cursor:pointer;
 }
 
-button:hover { background:#005fa3;}
+.resultado { margin-top:20px; padding:15px; border-radius:5px; display:none; }
 
-.resultado { margin-top:20px; padding:15px; border-radius:5px;}
-
-.verde{background:#d4edda; color:#155724;}
-.amarelo{background:#fff3cd; color:#856404;}
-.vermelho{background:#f8d7da; color:#721c24; animation: piscar 1s infinite; font-weight:bold;}
-
-.bloqueado { margin-top:10px; padding:10px; background:#eee; text-align:center; font-weight:bold;}
+.verde { background:#d4edda; }
+.amarelo { background:#fff3cd; }
+.vermelho { background:#f8d7da; font-weight:bold; animation: piscar 1s infinite; }
 
 @keyframes piscar {
-0%,50%,100% {opacity:1;}
-25%,75% {opacity:0.3;}
+  0%,100% {opacity:1;}
+  50% {opacity:0.3;}
+}
+
+.bloqueado {
+  margin-top:15px;
+  padding:10px;
+  background:#eee;
+  text-align:center;
+  font-weight:bold;
 }
 </style>
+
+<!-- QR CODE -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
 </head>
 
 <body>
+
 <div class="container">
 
-<h2>💧 Instituto Água Justa ⚖️💧</h2>
+<h2>💧 Água Justa ⚖️💧</h2>
 
-<!-- 🔥 MENSAGEM PARA REDE -->
-<div class="pdv">
-💬 Descubra se você está pagando o valor correto da sua conta de água.<br><br>
-⚖️ Análise independente baseada em consumo e faixas tarifárias.<br>
-</div>
-
-<!-- 💙 DOAÇÃO -->
-<div class="pdv">
-💙 Apoie o projeto (contribuição simbólica R$ 9,90)<br><br>
-
-<a href="https://link-de-pagamento-9-90-aqui" target="_blank">
-<button>💙 Doar R$ 9,90</button>
-</a>
-
-<br><br>
-🔒 Ajuda a manter o sistema ativo e atualizado.
-</div>
-
+<h3>📄 Dados do Cliente</h3>
 <div class="grid">
+<div class="campo"><label>Nome</label><input id="nome"></div>
+<div class="campo"><label>CPF / CNPJ</label><input id="doc"></div>
+<div class="campo"><label>RGI / PDE</label><input id="rgi"></div>
+<div class="campo"><label>Logradouro</label><input id="logradouro"></div>
+<div class="campo"><label>Número</label><input id="numero"></div>
+</div>
+
+<h3>🏠 Dados do Imóvel</h3>
+<div class="grid">
+
+<div class="campo">
+<label>Região</label>
+<select id="regiao">
+<option value="metropolitana">Metropolitana</option>
+<option value="regional">Regional</option>
+</select>
+</div>
 
 <div class="campo">
 <label>Tipo de ligação</label>
@@ -87,141 +89,190 @@ button:hover { background:#005fa3;}
 <div class="campo">
 <label>Categoria</label>
 <select id="categoria">
-<option value="normal">Residencial Normal</option>
-<option value="social">Residencial Social</option>
-<option value="vulneravel">Residencial Vulnerável</option>
-<option value="comercial">Comercial</option>
-<option value="ong">Comercial / ONGs</option>
-<option value="industrial">Industrial</option>
-<option value="publico">Órgãos Públicos</option>
+<option value="residencial_normal">Residencial Normal</option>
+<option value="residencial_social">Residencial Social</option>
 </select>
 </div>
 
-<div class="campo"><label>Moradores</label><input id="moradores" type="number"></div>
-<div class="campo"><label>Renda familiar (R$)</label><input id="renda" type="number"></div>
+<div class="campo">
+<label>Nº economias</label>
+<select id="economias">
+<option>1</option><option>2</option><option>3</option><option>4</option>
+</select>
+</div>
 
-<div class="campo"><label>Desempregados</label><input id="desempregados" type="number"></div>
-<div class="campo"><label>Deficiência</label><input id="vulneraveis" type="number"></div>
+</div>
 
-<div class="campo"><label>Nº economias</label><input id="economias" type="number" value="1"></div>
+<h3>👥 Perfil Social</h3>
+<div class="grid">
+
+<div class="campo">
+<label>Moradores</label>
+<select id="moradores">
+<option>1</option><option>2</option><option>3</option><option>4</option>
+<option>5</option><option>6</option><option>7</option><option>8</option>
+</select>
+</div>
+
+<div class="campo">
+<label>Renda Familiar (R$)</label>
+<input id="renda" type="number">
+</div>
+
+<div class="campo">
+<label>Desempregados</label>
+<select id="desempregados">
+<option>0</option><option>1</option><option>2</option><option>3</option>
+</select>
+</div>
+
+<div class="campo">
+<label>Deficiência</label>
+<select id="vulneraveis">
+<option>0</option><option>1</option><option>2</option>
+</select>
+</div>
+
+</div>
+
+<h3>💧 Consumo</h3>
+<div class="grid">
+
+<div class="campo"><label>Leitura inicial</label><input id="li" type="number"></div>
+<div class="campo"><label>Leitura final</label><input id="lf" type="number"></div>
+
+<div class="campo"><label>Data inicial</label><input id="d1" type="date"></div>
+<div class="campo"><label>Data final</label><input id="d2" type="date"></div>
 
 <div class="campo">
 <label>Destino do esgoto</label>
 <select id="destinoEsgoto">
 <option value="rede_frente">Rede - Frente</option>
-<option value="rede_lateral">Rede - Lateral</option>
-<option value="rede_fundos">Rede - Fundos</option>
-<option value="ramal">Ramal comunitário</option>
-<option value="fossa">Fossa séptica</option>
-<option value="corrego">Córrego</option>
-<option value="ceu_aberto">A céu aberto</option>
+<option value="fossa">Fossa</option>
+<option value="ceu">A céu aberto</option>
 </select>
 </div>
 
-<div class="campo"><label>Data inicial</label><input id="dataInicial" type="date"></div>
-<div class="campo"><label>Data final</label><input id="dataFinal" type="date"></div>
-
-<div class="campo"><label>Leitura inicial</label><input id="leituraInicial" type="number"></div>
-<div class="campo"><label>Leitura final</label><input id="leituraFinal" type="number"></div>
-
 </div>
 
-<button onclick="calcular()">Calcular Laudo</button>
-<button onclick="gerarPDF()">📄 Gerar PDF</button>
+<button onclick="calcular()">Calcular</button>
 
 <div id="resultado" class="resultado"></div>
 
-<div class="pdv">
-⚠️ Sistema independente de análise.<br>
-Resultados informativos sem vínculo com concessionárias.
+<!-- PAGAMENTO -->
+<div id="pagamento" style="display:none; margin-top:20px;">
+  <h3>💳 Pagamento</h3>
+  <canvas id="qrcode"></canvas>
+  <p id="statusPagamento">Aguardando pagamento...</p>
 </div>
 
 </div>
 
 <script>
 
-let tarifas = {
-normal:[3.5,5.5,8],
-social:[1.8,2.5,4],
-vulneravel:[1,1.5,2],
-comercial:[5,7,10],
-ong:[4,6,9],
-industrial:[6,8,12],
-publico:[5,7,10]
-};
+// 🔗 SUA API (Render)
+const API = "https://agua-apenas-backend.onrender.com";
+let paymentId = null;
 
-function calc(cat,c){
-let t=tarifas[cat] || tarifas["normal"];
-if(c<=10) return c*t[0];
-if(c<=20) return 10*t[0]+(c-10)*t[1];
-return 10*t[0]+10*t[1]+(c-20)*t[2];
+// ===== TARIFA =====
+function calcularTarifa(consumo){
+  return consumo * 5;
 }
 
 function calcular(){
 
-let moradores = +document.getElementById("moradores").value || 1;
-let desemp = +document.getElementById("desempregados").value || 0;
-let vuln = +document.getElementById("vulneraveis").value || 0;
-let economias = +document.getElementById("economias").value || 1;
+let moradores=+document.getElementById("moradores").value||1;
+let renda=+document.getElementById("renda").value||0;
+let li=+document.getElementById("li").value||0;
+let lf=+document.getElementById("lf").value||0;
 
-let ligacao = document.getElementById("ligacao").value;
-let destino = document.getElementById("destinoEsgoto").value;
-
-let li = +document.getElementById("leituraInicial").value || 0;
-let lf = +document.getElementById("leituraFinal").value || 0;
-
-let d1 = new Date(document.getElementById("dataInicial").value);
-let d2 = new Date(document.getElementById("dataFinal").value);
-
-let dias = (d2 - d1)/(1000*60*60*24);
-if(dias<=0 || isNaN(dias)) dias = 30;
-
-let consumo = lf - li;
-if(consumo <= 0) consumo = moradores * 5;
-
-let consumoDia = (consumo/dias/moradores)*1000;
-
-let classe="verde";
-let aviso="🟢 Consumo normal";
-
-if(consumoDia > 150 && consumoDia <= 250){
-classe="amarelo";
-aviso="🟡 Consumo acima da média";
+let consumo=lf-li;
+if(consumo<=0){
+  alert("Leitura inválida");
+  return;
 }
 
-if(consumoDia > 250){
-classe="vermelho";
-aviso="🔴 Consumo alto / POSSÍVEL VAZAMENTO";
-}
+let consumoDia=(consumo/moradores/30)*1000;
 
-let cat = document.getElementById("categoria").value;
-if(vuln>0) cat="vulneravel";
-else if(desemp>0) cat="social";
+let status="🟢 Normal", cor="verde";
+if(consumoDia>150){ status="🟡 Acima da média"; cor="amarelo"; }
+if(consumoDia>250){ status="🔴 Possível vazamento"; cor="vermelho"; }
 
-let valorAgua = (ligacao === "esgoto") ? 0 : calc(cat, consumo);
-let valorEsgoto = (ligacao === "agua") ? 0 : calc(cat, consumo);
+let valor = calcularTarifa(consumo);
 
-let conectado = destino.startsWith("rede") || destino === "ramal";
+let div=document.getElementById("resultado");
+div.style.display="block";
+div.className="resultado "+cor;
 
-document.getElementById("resultado").innerHTML = `
-<b>💧 RESULTADO DO LAUDO</b><br><br>
+div.innerHTML = `
+<b>Consumo:</b> ${consumo} m³<br>
+<b>Status:</b> ${status}<br><br>
 
-Consumo total: ${consumo.toFixed(2)} m³<br>
-Consumo médio: ${consumoDia.toFixed(1)} L/dia<br>
-Status: ${aviso}<br><br>
+<b>Valor estimado:</b> R$ ${valor.toFixed(2)}<br><br>
 
-💰 Água: R$ ${valorAgua.toFixed(2)}<br>
-💰 Esgoto: R$ ${valorEsgoto.toFixed(2)}<br><br>
-
-Nº economias: ${economias}<br>
-Destino: ${destino}<br><br>
-
-${conectado ? "✅ Rede coletora identificada" : "⚠️ Verificação necessária"}
+<div class="bloqueado">
+<button onclick="gerarPix()">
+🔒 Liberar relatório completo (R$ 4,99)
+</button>
+</div>
 `;
 }
 
-function gerarPDF(){
-window.print();
+// ===== PIX =====
+async function gerarPix() {
+
+  document.getElementById("pagamento").style.display = "block";
+
+  try {
+
+    const res = await fetch(`${API}/criar-pix`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ valor: 4.99 })
+    });
+
+    const data = await res.json();
+
+    if (!data.qr_code) {
+      alert("Erro ao gerar PIX");
+      return;
+    }
+
+    paymentId = data.id;
+
+    QRCode.toCanvas(
+      document.getElementById("qrcode"),
+      data.qr_code
+    );
+
+    verificarPagamento();
+
+  } catch {
+    alert("Erro ao conectar com servidor");
+  }
+}
+
+function verificarPagamento() {
+
+  const interval = setInterval(async () => {
+
+    try {
+
+      const res = await fetch(`${API}/status/${paymentId}`);
+      const data = await res.json();
+
+      if (data.liberado) {
+        clearInterval(interval);
+
+        document.getElementById("statusPagamento").innerText =
+          "✅ Pagamento aprovado!";
+
+        alert("📄 Relatório liberado!");
+      }
+
+    } catch {}
+
+  }, 5000);
 }
 
 </script>
