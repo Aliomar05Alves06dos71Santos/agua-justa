@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 <style>
 body {
   font-family: Arial;
-  background: linear-gradient(180deg, #eef6fb, #ffffff);
+  background: linear-gradient(180deg,#eef6fb,#ffffff);
   margin:0;
 }
 
@@ -29,6 +29,8 @@ body {
 
 h2 { margin-bottom:10px; }
 
+p { font-size:14px; }
+
 input, select {
   width:100%;
   padding:14px;
@@ -40,7 +42,7 @@ input, select {
 button {
   width:100%;
   padding:16px;
-  background: linear-gradient(90deg, #0077cc, #00aaff);
+  background: linear-gradient(90deg,#0077cc,#00aaff);
   color:white;
   border:none;
   border-radius:12px;
@@ -60,17 +62,21 @@ button {
 
 <div class="container">
 
+<!-- TELA 1 -->
 <div class="tela ativa" id="t1">
   <div class="card">
     <h2>Água Justa ⚖️💧</h2>
-    <p><strong>Você pode estar pagando mais caro na sua conta…</strong></p>
+    <p><strong>Você pode estar pagando mais na sua conta de água.</strong></p>
+    <p>Faça uma análise em menos de 1 minuto.</p>
     <button onclick="ir(2)">🔍 Começar análise</button>
   </div>
 </div>
 
+<!-- TELA 2 -->
 <div class="tela" id="t2">
   <div class="card">
     <h2>Tipo de Ligação</h2>
+    <p>Selecione conforme sua conta:</p>
     <select id="ligacao">
       <option value="agua">Somente Água</option>
       <option value="esgoto">Somente Esgoto</option>
@@ -80,54 +86,59 @@ button {
   </div>
 </div>
 
+<!-- TELA 3 -->
 <div class="tela" id="t3">
   <div class="card">
     <h2>Categoria</h2>
+    <p>Alguns clientes têm direito à tarifa social.</p>
     <select id="categoria">
       <option value="residencial_normal">Residencial</option>
-      <option value="residencial_social">Residencial Social</option>
+      <option value="residencial_social">Tarifa Social</option>
     </select>
     <button onclick="salvarCategoria()">Próximo</button>
   </div>
 </div>
 
+<!-- TELA 4 -->
 <div class="tela" id="t4">
   <div class="card">
-    <h2>Consumo (m³)</h2>
-    <input type="number" id="consumo">
+    <h2>Dados da Conta</h2>
 
-    <h2>Valor da Conta</h2>
-    <input type="number" id="valorConta">
+    <p>Consumo (m³)</p>
+    <input type="number" id="consumo" placeholder="Ex: 18">
 
-    <button onclick="salvarConsumo()">📊 Ver faixa</button>
+    <p>Valor pago (R$)</p>
+    <input type="number" id="valorConta" placeholder="Ex: 120.50">
+
+    <button onclick="salvarConsumo()">📊 Ver análise</button>
   </div>
 </div>
 
+<!-- TELA 5 -->
 <div class="tela" id="t5">
   <div class="card">
-    <h2>📊 Faixa de consumo</h2>
+    <h2>📊 Faixa de Consumo</h2>
     <div id="faixas"></div>
     <button onclick="gerarResultado()">Ver resultado</button>
   </div>
 </div>
 
+<!-- TELA 6 -->
 <div class="tela" id="t6">
   <div class="card">
     <h2>📊 Resultado</h2>
     <div id="resultado"></div>
 
-    <!-- FRASE DE CONVERSÃO -->
-    <p style="margin-top:15px; font-size:14px;">
-    ⚠️ Essa análise pode indicar diferenças reais na sua conta.<br><br>
-    🔍 O laudo completo mostra exatamente onde isso pode estar acontecendo.
+    <p style="font-weight:bold;">
+    Você já tem os dados. Agora falta entender o que eles significam.
     </p>
 
     <button onclick="abrirPagamento()">
-      💰 Liberar laudo completo (R$ 4,99)
+      🔓 Ver análise completa por R$ 4,99
     </button>
 
-    <p style="font-size:13px; color:#666;">
-      Pagamento único • Acesso imediato
+    <p style="color:red;font-size:13px;">
+    ⏳ Esta análise pode expirar
     </p>
 
     <div id="pagamento"></div>
@@ -140,33 +151,24 @@ button {
 
 let dados = {};
 
-const TARIFAS = {
-  residencial_normal: [
-    {min:0, max:10, valor:16.82, tipo:"fixo"},
-    {min:11, max:20, valor:2.63},
-    {min:21, max:50, valor:6.57},
-    {min:51, max:Infinity, valor:7.24}
-  ]
-};
-
 function ir(n){
   document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
   document.getElementById("t"+n).classList.add("ativa");
 }
 
 function salvarLigacao(){
-  dados.ligacao = ligacao.value;
+  dados.ligacao = document.getElementById("ligacao").value;
   ir(3);
 }
 
 function salvarCategoria(){
-  dados.categoria = categoria.value;
+  dados.categoria = document.getElementById("categoria").value;
   ir(4);
 }
 
 function salvarConsumo(){
-  dados.consumo = Number(consumo.value);
-  dados.valorConta = Number(valorConta.value);
+  dados.consumo = Number(document.getElementById("consumo").value);
+  dados.valorConta = Number(document.getElementById("valorConta").value);
   mostrarFaixa();
   ir(5);
 }
@@ -174,10 +176,12 @@ function salvarConsumo(){
 function mostrarFaixa(){
   let c = dados.consumo;
   let html="";
+
   if(c<=10) html=`<div class="highlight">0–10 m³</div>`;
   else if(c<=20) html=`<div class="highlight">11–20 m³</div>`;
   else if(c<=50) html=`<div class="highlight">21–50 m³</div>`;
   else html=`<div class="highlight">Acima de 50 m³</div>`;
+
   document.getElementById("faixas").innerHTML=html;
 }
 
@@ -193,19 +197,29 @@ function gerarResultado(){
   let pago = dados.valorConta;
   let diff = pago - estimado;
 
+  let explicacao = "";
+
+  if(diff > 0){
+    explicacao = "Possível cobrança acima do esperado. Pode estar relacionada à tarifa ou esgoto.";
+  } else {
+    explicacao = "Valor dentro ou abaixo da média, mas ainda pode haver revisão.";
+  }
+
   document.getElementById("resultado").innerHTML = `
-    <p>Consumo: ${dados.consumo} m³</p>
-    <p>Pago: R$ ${pago.toFixed(2)}</p>
-    <p>Estimado: R$ ${estimado.toFixed(2)}</p>
+    <p><strong>Consumo:</strong> ${dados.consumo} m³</p>
+    <p><strong>Pago:</strong> R$ ${pago.toFixed(2)}</p>
+    <p><strong>Estimado:</strong> R$ ${estimado.toFixed(2)}</p>
     <p style="color:${diff>0?"green":"orange"};">
     Diferença: R$ ${Math.abs(diff).toFixed(2)}
     </p>
+    <p>💡 ${explicacao}</p>
   `;
 
   ir(6);
 }
 
 function abrirPagamento(){
+
   let chave="SEU_PIX_AQUI";
   let codigo=`PIX:${chave}:4.99`;
 
@@ -213,6 +227,7 @@ function abrirPagamento(){
 
   document.getElementById("pagamento").innerHTML=`
     <h3>💳 Pagamento</h3>
+    <p>1. Copie ou escaneie</p>
     <img src="${qr}">
     <textarea style="width:100%;height:70px;">${codigo}</textarea>
     <button onclick="copiarPix('${codigo}')">📋 Copiar</button>
@@ -227,13 +242,24 @@ function copiarPix(c){
 
 function liberarLaudo(){
   document.getElementById("pagamento").innerHTML=`
-    <h3>📄 Laudo liberado</h3>
-    <p>Análise concluída com base nos dados informados.</p>
-    <button onclick="window.print()">📥 Baixar</button>
+    <h3>📄 Laudo Completo</h3>
+
+    <p><strong>INSTITUTO ÁGUA JUSTA ⚖️💧</strong></p>
+
+    <p>Esta análise indica possíveis divergências com base no consumo informado.</p>
+
+    <p>Recomenda-se verificar:</p>
+    <ul>
+      <li>Categoria tarifária</li>
+      <li>Cobrança de esgoto</li>
+      <li>Possível direito à tarifa social</li>
+    </ul>
+
+    <button onclick="window.print()">📥 Baixar / Imprimir</button>
   `;
 }
 
 </script>
 
 </body>
-</html>           
+</html>        
