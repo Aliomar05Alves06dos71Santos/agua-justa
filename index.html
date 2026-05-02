@@ -1,59 +1,61 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Água Justa ⚖️💧</title>
 
 <style>
-body {
-  font-family: Arial;
-  background: linear-gradient(180deg,#eef6fb,#ffffff);
-  margin:0;
-}
+body {font-family:Arial;background:#e6f7ff;margin:0;}
+.container {max-width:500px;margin:auto;background:#fff;padding:15px;min-height:100vh;}
 
-.container {
-  max-width:420px;
-  margin:auto;
-  padding:20px;
-}
+.tela {display:none;}
+.ativa {display:block;}
 
-.tela { display:none; }
-.tela.ativa { display:block; }
+h2,h3{text-align:center;}
 
-.card {
-  background:white;
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.08);
-}
-
-h2 { margin-bottom:10px; }
-
-p { font-size:14px; }
+.campo {display:flex;flex-direction:column;margin-bottom:10px;}
 
 input, select {
-  width:100%;
-  padding:14px;
-  margin:10px 0;
-  border-radius:10px;
-  border:1px solid #ddd;
+padding:12px;
+font-size:16px;
+border-radius:6px;
+border:1px solid #ccc;
 }
 
 button {
-  width:100%;
-  padding:16px;
-  background: linear-gradient(90deg,#0077cc,#00aaff);
-  color:white;
-  border:none;
-  border-radius:12px;
-  font-weight:bold;
+width:100%;
+padding:14px;
+margin-top:10px;
+background:#0077cc;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
 }
 
-.highlight {
-  background:#d4edda;
-  padding:10px;
-  border-radius:8px;
-  margin-top:8px;
+.nav {display:flex;gap:10px;}
+
+.resultado {padding:15px;border-radius:6px;margin-top:15px;}
+.verde{background:#d4edda;}
+.amarelo{background:#fff3cd;}
+.vermelho{background:#f8d7da;font-weight:bold;}
+
+.pixbox {
+background:#000;
+color:#0f0;
+padding:10px;
+font-size:12px;
+word-break:break-all;
+border-radius:6px;
+}
+
+.pdv {
+background:#fff3cd;
+padding:10px;
+margin-top:10px;
+border-left:5px solid #ffc107;
+font-size:13px;
 }
 </style>
 </head>
@@ -64,202 +66,293 @@ button {
 
 <!-- TELA 1 -->
 <div class="tela ativa" id="t1">
-  <div class="card">
-    <h2>Água Justa ⚖️💧</h2>
-    <p><strong>Você pode estar pagando mais na sua conta de água.</strong></p>
-    <p>Faça uma análise em menos de 1 minuto.</p>
-    <button onclick="ir(2)">🔍 Começar análise</button>
-  </div>
+
+<h2>💧 Água Justa ⚖️💧</h2>
+
+<p><b>Verifique se sua conta de água está correta de forma simples e rápida.</b></p>
+
+<p>
+💸 Identifique possíveis cobranças indevidas<br>
+🚽 Verifique a cobrança de esgoto<br>
+🏠 Confira economias/residências cadastradas<br>
+🔎 Detecte possíveis erros cadastrais<br>
+📉 Entenda se o valor da conta está acima do esperado
+</p>
+
+<p>
+📊 Análise baseada em critérios técnicos de saneamento<br>
+📑 Pode auxiliar em revisões cadastrais
+</p>
+
+<p>
+📆 Utilize sempre que quiser para acompanhar seu consumo
+</p>
+
+<button type="button" onclick="next(2)">Iniciar análise</button>
+
+<br><br>
+
+<div style="font-size:13px;text-align:center;">
+👨🏽‍🔧 Aliomar Alves dos Santos<br>
+Especialista em Saneamento Básico
+</div>
+
+<br>
+
+<div class="pdv">
+⚠️ Resultado informativo<br>
+🔒 Seus dados não são armazenados
+</div>
+
 </div>
 
 <!-- TELA 2 -->
 <div class="tela" id="t2">
-  <div class="card">
-    <h2>Tipo de Ligação</h2>
-    <p>Selecione conforme sua conta:</p>
-    <select id="ligacao">
-      <option value="agua">Somente Água</option>
-      <option value="esgoto">Somente Esgoto</option>
-      <option value="agua_esgoto">Água + Esgoto</option>
-    </select>
-    <button onclick="salvarLigacao()">Próximo</button>
-  </div>
+
+<h3>Dados principais</h3>
+
+<div class="campo">
+<label>Tipo de ligação</label>
+<select id="ligacao">
+<option value="agua">Água</option>
+<option value="agua_esgoto">Água e Esgoto</option>
+<option value="esgoto">Esgoto</option>
+</select>
+</div>
+
+<div class="campo">
+<label>Categoria</label>
+<select id="categoria">
+<option value="normal">Residencial Normal</option>
+<option value="social">Residencial Social</option>
+<option value="vulneravel">Residencial Vulnerável</option>
+<option value="comercial">Comercial</option>
+<option value="ong">Comercial / ONGs</option>
+<option value="industrial">Industrial</option>
+<option value="publico">Órgãos Públicos</option>
+
+</select>
+</div>
+
+<div class="campo">
+<label>Moradores</label>
+<select id="moradores">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+</select>
+</div>
+
+<div class="campo">
+<label>Desempregados</label>
+<select id="desempregados">
+<option value="0">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+</select>
+</div>
+
+<div class="campo">
+<label>Renda familiar (R$)</label>
+<input id="renda" type="text" placeholder="R$ 0,00">
+</div>
+
+<div class="nav">
+<button type="button" onclick="next(1)">Voltar</button>
+<button type="button" onclick="next(3)">Próximo</button>
+</div>
+
 </div>
 
 <!-- TELA 3 -->
 <div class="tela" id="t3">
-  <div class="card">
-    <h2>Categoria</h2>
-    <p>Alguns clientes têm direito à tarifa social.</p>
-    <select id="categoria">
-      <option value="residencial_normal">Residencial</option>
-      <option value="residencial_social">Tarifa Social</option>
-    </select>
-    <button onclick="salvarCategoria()">Próximo</button>
+
+<h3>Consumo</h3>
+
+<div class="linha-dupla">
+
+ <div class="campo">
+  <label>Leitura inicial</label>
+  <div class="linha-dupla">
+    <input id="leituraInicial" type="number" placeholder="0000">
+    <input id="dataInicial" type="date">
   </div>
+</div>
+
+<div class="campo">
+  <label>Leitura final</label>
+  <div class="linha-dupla">
+    <input id="leituraFinal" type="number" placeholder="0000">
+    <input id="dataFinal" type="date">
+  </div>
+</div>
+
+</div>
+<div class="campo">
+<label>Destino do esgoto</label>
+<select id="destinoEsgoto">
+<option value="rede_frente">Rede - Frente</option>
+<option value="rede_lateral">Rede - Lateral</option>
+<option value="rede_fundos">Rede - Fundos</option>
+<option value="rede_servidao">Rede - Fundos com servidão</option>
+<option value="ramal">Ramal comunitário</option>
+<option value="gap">GAP (Galeria de Águas Pluviais)</option>
+<option value="fossa">Fossa séptica</option>
+<option value="corrego">Córrego</option>
+<option value="ceu_aberto">A céu aberto</option>
+</select>
+</div>
+
+<div class="nav">
+<button type="button" onclick="next(2)">Voltar</button>
+<button type="button" onclick="calcular(); next(4)">Calcular</button>
+</div>
+
 </div>
 
 <!-- TELA 4 -->
 <div class="tela" id="t4">
-  <div class="card">
-    <h2>Dados da Conta</h2>
-
-    <p>Consumo (m³)</p>
-    <input type="number" id="consumo" placeholder="Ex: 18">
-
-    <p>Valor pago (R$)</p>
-    <input type="number" id="valorConta" placeholder="Ex: 120.50">
-
-    <button onclick="salvarConsumo()">📊 Ver análise</button>
-  </div>
+<h3>Resultado</h3>
+<div id="resultado"></div>
+<button type="button" onclick="next(5)">🔓 Liberar Laudo</button>
 </div>
 
 <!-- TELA 5 -->
 <div class="tela" id="t5">
-  <div class="card">
-    <h2>📊 Faixa de Consumo</h2>
-    <div id="faixas"></div>
-    <button onclick="gerarResultado()">Ver resultado</button>
-  </div>
-</div>
-
-<!-- TELA 6 -->
-<div class="tela" id="t6">
-  <div class="card">
-    <h2>📊 Resultado</h2>
-    <div id="resultado"></div>
-
-    <p style="font-weight:bold;">
-    Você já tem os dados. Agora falta entender o que eles significam.
-    </p>
-
-    <button onclick="abrirPagamento()">
-      🔓 Ver análise completa por R$ 4,99
-    </button>
-
-    <p style="color:red;font-size:13px;">
-    ⏳ Esta análise pode expirar
-    </p>
-
-    <div id="pagamento"></div>
-  </div>
+<h3>Pagamento PIX</h3>
+<div class="pixbox" id="pix"></div>
+<p id="status"></p>
+<button type="button" onclick="gerarPDF()">📄 Gerar PDF</button>
 </div>
 
 </div>
 
 <script>
 
-let dados = {};
-
-function ir(n){
-  document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
-  document.getElementById("t"+n).classList.add("ativa");
+function next(n){
+document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
+document.getElementById("t"+n).classList.add("ativa");
 }
 
-function salvarLigacao(){
-  dados.ligacao = document.getElementById("ligacao").value;
-  ir(3);
+// máscara renda
+document.getElementById("renda").addEventListener("input", function(e){
+let v=e.target.value.replace(/\D/g,"");
+v=(v/100).toFixed(2)+"";
+v=v.replace(".",",");
+v=v.replace(/\B(?=(\d{3})+(?!\d))/g,".");
+e.target.value="R$ "+v;
+});
+
+// tarifas
+let tarifas={
+normal:[{max:10,valor:40.42,tipo:"fixo"},{max:20,valor:6.40},{max:50,valor:15.95},{max:Infinity,valor:17.57}],
+social:[{max:10,valor:11.46,tipo:"fixo"},{max:20,valor:2.18},{max:50,valor:7.79},{max:Infinity,valor:12.26}],
+vulneravel:[{max:10,valor:8.74,tipo:"fixo"},{max:20,valor:1.10},{max:50,valor:3.67},{max:Infinity,valor:12.26}],
+comercial:[{max:10,valor:81.57,tipo:"fixo"},{max:20,valor:15.95},{max:50,valor:30.57},{max:Infinity,valor:31.84}]
+};
+
+function calc(cat,c){
+let t=tarifas[cat]||tarifas.normal;
+let total=0,ant=0;
+for(let f of t){
+if(c>ant){
+let lim=Math.min(c,f.max);
+let faixa=lim-ant;
+total += (f.tipo==="fixo") ? f.valor : faixa*f.valor;
+ant=f.max;
+}}
+return total;
 }
 
-function salvarCategoria(){
-  dados.categoria = document.getElementById("categoria").value;
-  ir(4);
+function calcular(){
+
+let moradores=+document.getElementById("moradores").value||1;
+let desemp=+document.getElementById("desempregados").value||0;
+let renda=document.getElementById("renda").value;
+
+let cat=document.getElementById("categoria").value;
+let ligacao=document.getElementById("ligacao").value;
+
+let li=+document.getElementById("leituraInicial").value||0;
+let lf=+document.getElementById("leituraFinal").value||0;
+let destino=document.getElementById("destinoEsgoto").value;
+
+// consumo
+let consumo=lf-li;
+if(consumo<=0) consumo=moradores*5;
+
+let consumoPessoa=consumo/moradores;
+let consumoDia=(consumoPessoa*1000)/30;
+
+// tarifas com tipo de ligação
+let agua=(ligacao!=="esgoto") ? calc(cat,consumo) : 0;
+let esgoto=(ligacao!=="agua") ? calc(cat,consumo) : 0;
+
+// esgoto inteligência
+let valorEsgoto=esgoto;
+let alertaEsgoto="";
+
+if(["fossa","corrego","ceu_aberto"].includes(destino)){
+valorEsgoto=0;
+alertaEsgoto="🚫 Esgoto não coletado → possível ressarcimento";
 }
 
-function salvarConsumo(){
-  dados.consumo = Number(document.getElementById("consumo").value);
-  dados.valorConta = Number(document.getElementById("valorConta").value);
-  mostrarFaixa();
-  ir(5);
+// social
+let rendaNum=renda.replace(/\D/g,"");
+let alertaSocial="";
+if((rendaNum && rendaNum<200000)||desemp>0){
+alertaSocial="💰 Possível tarifa social";
 }
 
-function mostrarFaixa(){
-  let c = dados.consumo;
-  let html="";
+// status
+let status="🟢 Normal",classe="verde";
+if(consumoDia>150){status="🟡 Acima da média";classe="amarelo";}
+if(consumoDia>250){status="🔴 Possível Vazamento Verifique Instalações Hidráulicas";classe="vermelho";}
 
-  if(c<=10) html=`<div class="highlight">0–10 m³</div>`;
-  else if(c<=20) html=`<div class="highlight">11–20 m³</div>`;
-  else if(c<=50) html=`<div class="highlight">21–50 m³</div>`;
-  else html=`<div class="highlight">Acima de 50 m³</div>`;
+// total
+let total=agua+valorEsgoto;
 
-  document.getElementById("faixas").innerHTML=html;
+// resultado
+document.getElementById("resultado").className="resultado "+classe;
+
+document.getElementById("resultado").innerHTML=`
+<b>📊 LAUDO TÉCNICO</b><br><br>
+
+Categoria: ${cat}<br>
+Renda: ${renda||"-"}<br><br>
+
+Consumo: ${consumo.toFixed(2)} m³<br>
+Por pessoa: ${consumoPessoa.toFixed(2)} m³<br>
+Por pessoa/dia: ${consumoDia.toFixed(1)} L<br><br>
+
+Status: ${status}<br><br>
+
+Água: R$ ${agua.toFixed(2)}<br>
+Esgoto: R$ ${valorEsgoto.toFixed(2)}<br>
+<b>Total: R$ ${total.toFixed(2)}</b><br><br>
+
+${alertaSocial}<br>
+${alertaEsgoto}
+
+<div class="pdv">
+⚠️ Resultado informativo<br>
+📲 Sem vinculos com concessionárias de Saneamento básico ou orgãos governamentais 
+💧 Projeto social
+</div>
+`;
+
+document.getElementById("pix").innerText="R$ "+total.toFixed(2)+"\nPIX: CHAVE_AQUI";
+document.getElementById("status").innerText="Envie comprovante para liberar relatório";
+
 }
 
-function calcularConta(c){
-  if(c<=10) return 16.82;
-  if(c<=20) return 16.82 + (c-10)*2.63;
-  if(c<=50) return 16.82 + 10*2.63 + (c-20)*6.57;
-  return 16.82 + 10*2.63 + 30*6.57 + (c-50)*7.24;
-}
-
-function gerarResultado(){
-  let estimado = calcularConta(dados.consumo);
-  let pago = dados.valorConta;
-  let diff = pago - estimado;
-
-  let explicacao = "";
-
-  if(diff > 0){
-    explicacao = "Possível cobrança acima do esperado. Pode estar relacionada à tarifa ou esgoto.";
-  } else {
-    explicacao = "Valor dentro ou abaixo da média, mas ainda pode haver revisão.";
-  }
-
-  document.getElementById("resultado").innerHTML = `
-    <p><strong>Consumo:</strong> ${dados.consumo} m³</p>
-    <p><strong>Pago:</strong> R$ ${pago.toFixed(2)}</p>
-    <p><strong>Estimado:</strong> R$ ${estimado.toFixed(2)}</p>
-    <p style="color:${diff>0?"green":"orange"};">
-    Diferença: R$ ${Math.abs(diff).toFixed(2)}
-    </p>
-    <p>💡 ${explicacao}</p>
-  `;
-
-  ir(6);
-}
-
-function abrirPagamento(){
-
-  let chave="SEU_PIX_AQUI";
-  let codigo=`PIX:${chave}:4.99`;
-
-  let qr="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+encodeURIComponent(codigo);
-
-  document.getElementById("pagamento").innerHTML=`
-    <h3>💳 Pagamento</h3>
-    <p>1. Copie ou escaneie</p>
-    <img src="${qr}">
-    <textarea style="width:100%;height:70px;">${codigo}</textarea>
-    <button onclick="copiarPix('${codigo}')">📋 Copiar</button>
-    <button onclick="liberarLaudo()">✅ Já paguei</button>
-  `;
-}
-
-function copiarPix(c){
-  navigator.clipboard.writeText(c);
-  alert("Copiado!");
-}
-
-function liberarLaudo(){
-  document.getElementById("pagamento").innerHTML=`
-    <h3>📄 Laudo Completo</h3>
-
-    <p><strong>INSTITUTO ÁGUA JUSTA ⚖️💧</strong></p>
-
-    <p>Esta análise indica possíveis divergências com base no consumo informado.</p>
-
-    <p>Recomenda-se verificar:</p>
-    <ul>
-      <li>Categoria tarifária</li>
-      <li>Cobrança de esgoto</li>
-      <li>Possível direito à tarifa social</li>
-    </ul>
-
-    <button onclick="window.print()">📥 Baixar / Imprimir</button>
-  `;
+function gerarPDF(){
+window.print();
 }
 
 </script>
 
 </body>
-</html>        
