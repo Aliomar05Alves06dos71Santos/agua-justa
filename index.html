@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
@@ -162,11 +162,23 @@ Especialista em Saneamento Básico
 
 <div class="nav">
 <button type="button" onclick="next(1)">Voltar</button>
-<button type="button" onclick="next(3)">Próximo</button>
+<button type="button" onclick="next(25)">Próximo</button>
+</div><!-- TELA CLIENTE -->
+<div class="tela" id="t25">
+
+<h3>Cliente (Opcional)</h3>
+
+<div class="campo">
+<label>Nome do cliente</label>
+<input id="nomeCliente" type="text" placeholder="Opcional">
+</div>
+
+<div class="nav">
+<button type="button" onclick="next(2)">Voltar</button>
+<button type="button" onclick="next(3)">Pular</button>
 </div>
 
 </div>
-
 <!-- TELA 3 -->
 <div class="tela" id="t3">
 
@@ -217,19 +229,23 @@ Especialista em Saneamento Básico
 <div class="tela" id="t4">
 <h3>Resultado</h3>
 <div id="resultado"></div>
-<button type="button" onclick="next(5)">🔓 Liberar Laudo</button>
+<button type="button" onclick="next(5)">🔓 Gerar Laudo Completo</button>
 </div>
 
 <!-- TELA 5 -->
 <div class="tela" id="t5">
-<h3>Pagamento PIX</h3>
+
+<h3>🔒 Desbloquear Laudo Completo</h3>
+
+<p><b>Valor: R$ 4,99</b></p>
+
 <div class="pixbox" id="pix"></div>
+
 <p id="status"></p>
-<button type="button" onclick="gerarPDF()">📄 Gerar PDF</button>
-</div>
+
+<button type="button" onclick="liberar()">🔓 Já paguei - baixar laudo</button>
 
 </div>
-
 <script>
 
 function next(n){
@@ -267,6 +283,10 @@ ant=f.max;
 return total;
 }
 
+function liberar(){
+alert("Acesso liberado!");
+gerarPDF();
+}
 function calcular(){
 
 let moradores=+document.getElementById("moradores").value||1;
@@ -279,7 +299,7 @@ let ligacao=document.getElementById("ligacao").value;
 let li=+document.getElementById("leituraInicial").value||0;
 let lf=+document.getElementById("leituraFinal").value||0;
 let destino=document.getElementById("destinoEsgoto").value;
-
+let nome = document.getElementById("nomeCliente").value || "";
 // consumo
 let consumo=lf-li;
 if(consumo<=0) consumo=moradores*5;
@@ -320,16 +340,14 @@ document.getElementById("resultado").className="resultado "+classe;
 
 document.getElementById("resultado").innerHTML=`
 <b>📊 LAUDO TÉCNICO</b><br><br>
-
+${nome ? "👤 Cliente: " + nome + "<br><br>" : ""}
 Categoria: ${cat}<br>
 Renda: ${renda||"-"}<br><br>
-
 Consumo: ${consumo.toFixed(2)} m³<br>
 Por pessoa: ${consumoPessoa.toFixed(2)} m³<br>
 Por pessoa/dia: ${consumoDia.toFixed(1)} L<br><br>
 
 Status: ${status}<br><br>
-
 Água: R$ ${agua.toFixed(2)}<br>
 Esgoto: R$ ${valorEsgoto.toFixed(2)}<br>
 <b>Total: R$ ${total.toFixed(2)}</b><br><br>
@@ -355,5 +373,4 @@ window.print();
 </script>
 
 </body>
-
-
+</html>
