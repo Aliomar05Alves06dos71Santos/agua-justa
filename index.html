@@ -214,7 +214,7 @@ Especialista em Saneamento Básico
 <option value="rede_servidao">Rede - Fundos com servidão</option>
 <option value="ramal">Ramal comunitário</option>
 <option value="gap">GAP (Galeria de Águas Pluviais)</option>
-<option value="fossa">Fossa séptica</option>
+<option value="fossa">Fossaséptica</option>
 <option value="corrego">Córrego</option>
 <option value="ceu_aberto">A céu aberto</option>
 </select>
@@ -231,40 +231,66 @@ Especialista em Saneamento Básico
 <div class="tela" id="t4">
 <h3>Resultado</h3>
 <div id="resultado"></div>
-<button type="button" onclick="next(5)">🔓 Gerar Laudo Completo</button>
+<button type="button" onclick="next(5)">💙 Apoiar projeto e salvar laudo</button>
 </div>
 
 <!-- TELA 5 -->
 <div class="tela" id="t5">
 
-<h3>🔒 Desbloquear Laudo Completo</h3>
+<h3>💙 Apoie este projeto (opcional)</h3>
 
-<p><b>Valor: R$ 4,99</b></p>
+<p>
+Este sistema é gratuito.<br>
+Se quiser apoiar o desenvolvimento, faça uma doação voluntária.
+</p>
 
 <div class="pixbox" id="pix"></div>
+<div class="pixbox" id="pix"></div>
 
+<button type="button" onclick="copiarPix()">
+📋 Copiar PIX para doar
+</button>
 <p id="status"></p>
 
-<button type="button" onclick="liberar()">🔓 Já paguei - baixar laudo</button>
+<button type="button" onclick="gerarPDF()">
+📄 Imprimir / Salvar Laudo
+</button>
 
 </div>
+
 <script>
 
+/* =========================
+   NAVEGAÇÃO SEGURA
+========================= */
 function next(n){
+try{
 document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
-document.getElementById("t"+n).classList.add("ativa");
+let el = document.getElementById("t"+n);
+if(el) el.classList.add("ativa");
+}catch(e){
+console.log("Erro navegação:", e);
+}
 }
 
-// máscara renda
-document.getElementById("renda").addEventListener("input", function(e){
-let v=e.target.value.replace(/\D/g,"");
-v=(v/100).toFixed(2)+"";
-v=v.replace(".",",");
-v=v.replace(/\B(?=(\d{3})+(?!\d))/g,".");
-e.target.value="R$ "+v;
-});
+/* =========================
+   MÁSCARA RENDA (BLINDADA)
+========================= */
+let rendaEl = document.getElementById("renda");
 
-// tarifas
+if(rendaEl){
+rendaEl.addEventListener("input", function(e){
+let v = e.target.value.replace(/\D/g,"");
+v = (v/100).toFixed(2)+"";
+v = v.replace(".",",");
+v = v.replace(/\B(?=(\d{3})+(?!\d))/g,".");
+e.target.value = "R$ "+v;
+});
+}
+
+/* =========================
+   TARIFAS
+========================= */
 let tarifas={
 normal:[{max:10,valor:40.42,tipo:"fixo"},{max:20,valor:6.40},{max:50,valor:15.95},{max:Infinity,valor:17.57}],
 social:[{max:10,valor:11.46,tipo:"fixo"},{max:20,valor:2.18},{max:50,valor:7.79},{max:Infinity,valor:12.26}],
@@ -273,104 +299,120 @@ comercial:[{max:10,valor:81.57,tipo:"fixo"},{max:20,valor:15.95},{max:50,valor:3
 };
 
 function calc(cat,c){
-let t=tarifas[cat]||tarifas.normal;
-let total=0,ant=0;
+let t = tarifas[cat] || tarifas.normal;
+let total = 0, ant = 0;
+
 for(let f of t){
-if(c>ant){
-let lim=Math.min(c,f.max);
-let faixa=lim-ant;
-total += (f.tipo==="fixo") ? f.valor : faixa*f.valor;
-ant=f.max;
+if(c > ant){
+let lim = Math.min(c,f.max);
+let faixa = lim - ant;
+total += (f.tipo === "fixo") ? f.valor : faixa * f.valor;
+ant = f.max;
 }}
+
 return total;
 }
 
-function liberar(){
-alert("Acesso liberado!");
-gerarPDF();
-}
+/* =========================
+   CALCULAR (SEGURO)
+========================= */
 function calcular(){
 
-let moradores=+document.getElementById("moradores").value||1;
-let desemp=+document.getElementById("desempregados").value||0;
-let renda=document.getElementById("renda").value;
+try{
 
-let cat=document.getElementById("categoria").value;
-let ligacao=document.getElementById("ligacao").value;
+let moradores = +document.getElementById("moradores")?.value || 1;
+let desemp = +document.getElementById("desempregados")?.value || 0;
 
-let li=+document.getElementById("leituraInicial").value||0;
-let lf=+document.getElementById("leituraFinal").value||0;
-let destino=document.getElementById("destinoEsgoto").value;
-let nome = document.getElementById("nomeCliente").value || "";
+let renda = document.getElementById("renda")?.value || "";
+
+let cat = document.getElementById("categoria")?.value || "normal";
+let ligacao = document.getElementById("ligacao")?.value || "agua_esgoto";
+
+let li = +document.getElementById("leituraInicial")?.value || 0;
+let lf = +document.getElementById("leituraFinal")?.value || 0;
+
+let destino = document.getElementById("destinoEsgoto")?.value || "rede_frente";
+let nome = document.getElementById("nomeCliente")?.value || "";
+
 // consumo
-let consumo=lf-li;
-if(consumo<=0) consumo=moradores*5;
+let consumo = lf - li;
+if(consumo <= 0) consumo = moradores * 5;
 
-let consumoPessoa=consumo/moradores;
-let consumoDia=(consumoPessoa*1000)/30;
+let consumoPessoa = consumo / moradores;
+let consumoDia = (consumoPessoa * 1000) / 30;
 
-// tarifas com tipo de ligação
-let agua=(ligacao!=="esgoto") ? calc(cat,consumo) : 0;
-let esgoto=(ligacao!=="agua") ? calc(cat,consumo) : 0;
+// tarifas
+let agua = (ligacao !== "esgoto") ? calc(cat, consumo) : 0;
+let esgoto = (ligacao !== "agua") ? calc(cat, consumo) : 0;
 
-// esgoto inteligência
-let valorEsgoto=esgoto;
-let alertaEsgoto="";
+let valorEsgoto = esgoto;
+let alertaEsgoto = "";
 
 if(["fossa","corrego","ceu_aberto"].includes(destino)){
-valorEsgoto=0;
-alertaEsgoto="🚫 Esgoto não coletado → possível ressarcimento";
+valorEsgoto = 0;
+alertaEsgoto = "🚫 Esgoto não coletado";
 }
 
 // social
-let rendaNum=renda.replace(/\D/g,"");
-let alertaSocial="";
-if((rendaNum && rendaNum<200000)||desemp>0){
-alertaSocial="💰 Possível tarifa social";
+let rendaNum = renda.replace(/\D/g,"");
+let alertaSocial = "";
+
+if((rendaNum && rendaNum < 200000) || desemp > 0){
+alertaSocial = "💙 Possível tarifa social";
 }
 
 // status
-let status="🟢 Normal",classe="verde";
-if(consumoDia>150){status="🟡 Acima da média";classe="amarelo";}
-if(consumoDia>250){status="🔴 Possível Vazamento Verifique Instalações Hidráulicas";classe="vermelho";}
+let status = "🟢 Normal";
+let classe = "verde";
+
+if(consumoDia > 150){status="🟡 Acima da média";classe="amarelo";}
+if(consumoDia > 250){status="🔴 Vazamento provável";classe="vermelho";}
 
 // total
-let total=agua+valorEsgoto;
+let total = agua + valorEsgoto;
 
 // resultado
-document.getElementById("resultado").className="resultado "+classe;
+let res = document.getElementById("resultado");
+res.className = "resultado " + classe;
 
-document.getElementById("resultado").innerHTML=`
+res.innerHTML = `
 <b>📊 LAUDO TÉCNICO</b><br><br>
 ${nome ? "👤 Cliente: " + nome + "<br><br>" : ""}
-Categoria: ${cat}<br>
-Renda: ${renda||"-"}<br><br>
+
 Consumo: ${consumo.toFixed(2)} m³<br>
 Por pessoa: ${consumoPessoa.toFixed(2)} m³<br>
-Por pessoa/dia: ${consumoDia.toFixed(1)} L<br><br>
+Dia: ${consumoDia.toFixed(1)} L<br><br>
 
 Status: ${status}<br><br>
+
 Água: R$ ${agua.toFixed(2)}<br>
 Esgoto: R$ ${valorEsgoto.toFixed(2)}<br>
 <b>Total: R$ ${total.toFixed(2)}</b><br><br>
 
 ${alertaSocial}<br>
 ${alertaEsgoto}
-
-<div class="pdv">
-⚠️ Resultado informativo<br>
-💧 Projeto social
-</div>
 `;
+<div class="pixbox" id="pix"></div>
 
-document.getElementById("pix").innerText =
-"R$ 4,99\n\n" +
-"00020126360014br.gov.bcb.pix01146415204500016452040000530398654044.995802BR592464.152.045 ALIOMAR ALVES6009Sao Paulo62240520daqr32807395944258426304D279";
-
-document.getElementById("status").innerText =
-"Envie comprovante para liberar relatório";
+<button type="button" onclick="copiarPix()">
+📋 Copiar PIX para doar
+</button>
+let pix = document.getElementById("pix");
+if(pix){
+pix.innerText = "💙 PIX DOAÇÃO VOLUNTÁRIA\n\n00020126360014br.gov.bcb.pix...";
 }
 
+}catch(e){
+console.log(e);
+document.getElementById("resultado").innerHTML =
+"⚠️ Erro ao gerar laudo";
+}
+
+}
+
+/* =========================
+   PDF / IMPRESSÃO
+========================= */
 function gerarPDF(){
 window.print();
 }
