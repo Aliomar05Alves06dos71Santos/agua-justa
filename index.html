@@ -244,9 +244,6 @@ Este sistema é gratuito.<br>
 Se quiser apoiar o desenvolvimento, faça uma doação voluntária.
 </p>
 
-<div class="pixbox" id="pix"></div>
-<div class="pixbox" id="pix"></div>
-
 <button type="button" onclick="copiarPix()">
 📋 Copiar PIX para doar
 </button>
@@ -391,17 +388,14 @@ Esgoto: R$ ${valorEsgoto.toFixed(2)}<br>
 
 ${alertaSocial}<br>
 ${alertaEsgoto}
+
+<br><br>
+
+<div class="pixbox">
+💙 PIX DOAÇÃO VOLUNTÁRIA<br><br>
+00020126360014br.gov.bcb.pix...
+</div>
 `;
-<div class="pixbox" id="pix"></div>
-
-<button type="button" onclick="copiarPix()">
-📋 Copiar PIX para doar
-</button>
-let pix = document.getElementById("pix");
-if(pix){
-pix.innerText = "💙 PIX DOAÇÃO VOLUNTÁRIA\n\n00020126360014br.gov.bcb.pix...";
-}
-
 }catch(e){
 console.log(e);
 document.getElementById("resultado").innerHTML =
