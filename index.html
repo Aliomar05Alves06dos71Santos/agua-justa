@@ -7,46 +7,55 @@
 
 <style>
 body {font-family:Arial;background:#e6f7ff;margin:0;}
-.container {max-width:500px;margin:auto;background:#fff;padding:15px;min-height:100vh;}
+.container {max-width:520px;margin:auto;background:#fff;padding:15px;min-height:100vh;}
 
 .tela {display:none;}
 .ativa {display:block;}
 
 h2,h3{text-align:center;}
 
-.campo {display:flex;flex-direction:column;margin-bottom:10px;}
+.campo{display:flex;flex-direction:column;margin-bottom:10px;}
 
-input, select {
+input,select{
 padding:12px;
 font-size:16px;
 border-radius:6px;
 border:1px solid #ccc;
 }
 
-button {
+button{
 width:100%;
 padding:14px;
 margin-top:10px;
 background:#0077cc;
-color:white;
+color:#fff;
 border:none;
 border-radius:6px;
 font-size:16px;
 }
 
-.nav {display:flex;gap:10px;}
+.nav{display:flex;gap:10px;}
 
-.resultado {padding:15px;border-radius:6px;margin-top:15px;}
+.box{
+background:#f4f4f4;
+padding:10px;
+border-left:4px solid #0077cc;
+margin-top:10px;
+border-radius:6px;
+}
+
 .verde{background:#d4edda;}
 .amarelo{background:#fff3cd;}
 .vermelho{background:#f8d7da;font-weight:bold;}
 
-.box {
-background:#f8f9fa;
+.pixbox{
+background:#000;
+color:#0f0;
 padding:10px;
+font-size:12px;
 border-radius:6px;
+word-break:break-all;
 margin-top:10px;
-border-left:4px solid #0077cc;
 }
 </style>
 </head>
@@ -55,22 +64,38 @@ border-left:4px solid #0077cc;
 
 <div class="container">
 
-<!-- TELA 1 -->
+<!-- TELA 1 (FIEL À ORIGINAL) -->
 <div class="tela ativa" id="t1">
 
 <h2>💧 Água Justa ⚖️💧</h2>
 
-<p><b>Verifique sua conta de água com análise técnica simples.</b></p>
+<p><b>Verifique se sua conta de água está correta de forma simples e rápida.</b></p>
 
 <p>
-💸 Cobranças indevidas<br>
-🚽 Esgoto e tarifa aplicada<br>
-🏠 Economias cadastradas<br>
-🔎 Erros de cadastro<br>
-📉 Consumo fora do padrão
+💸 Identifique possíveis cobranças indevidas<br>
+🚽 Verifique a cobrança de esgoto<br>
+🏠 Confira economias/residências cadastradas<br>
+🔎 Detecte possíveis erros cadastrais<br>
+📉 Entenda se o valor da conta está acima do esperado
+</p>
+
+<p>
+📊 Análise baseada em critérios técnicos de saneamento<br>
+📑 Pode auxiliar em revisões cadastrais
+</p>
+
+<p>
+📆 Utilize sempre que quiser para acompanhar seu consumo
 </p>
 
 <button onclick="next(2)">Iniciar análise</button>
+
+<br><br>
+
+<div style="text-align:center;font-size:13px">
+👨🏽‍🔧 Aliomar Alves dos Santos<br>
+Especialista em Saneamento Básico
+</div>
 
 </div>
 
@@ -89,13 +114,9 @@ border-left:4px solid #0077cc;
 </div>
 
 <div class="campo">
-<label>Economias / Residências</label>
+<label>Economias</label>
 <select id="economias">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
+<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
 </select>
 </div>
 
@@ -133,22 +154,22 @@ border-left:4px solid #0077cc;
 <div class="campo">
 <label>Leitura inicial</label>
 <input id="li" type="number">
-<input id="dataIni" type="date">
+<input id="di" type="date">
 </div>
 
 <div class="campo">
 <label>Leitura final</label>
 <input id="lf" type="number">
-<input id="dataFim" type="date">
+<input id="df" type="date">
 </div>
 
 <div class="campo">
 <label>Destino do esgoto</label>
 <select id="destino">
-<option value="rede">Rede pública</option>
-<option value="fossa">Fossa séptica</option>
+<option value="rede">Rede</option>
+<option value="fossa">Fossa</option>
 <option value="corrego">Córrego</option>
-<option value="ceu">Céu aberto</option>
+<option value="ceu">A céu aberto</option>
 </select>
 </div>
 
@@ -165,116 +186,112 @@ border-left:4px solid #0077cc;
 <h3>Resultado</h3>
 <div id="resultado"></div>
 
-<button onclick="next(1)">Nova análise</button>
-
 </div>
 
 </div>
 
 <script>
 
-/* navegação */
 function next(n){
 document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
 document.getElementById("t"+n).classList.add("ativa");
 }
 
-/* TARIFA ARSESP (estrutura progressiva realista) */
-function tarifa(consumo){
-let faixas = [
-{lim:10, valor:2.60},
-{lim:20, valor:4.90},
-{lim:50, valor:7.80},
-{lim:Infinity, valor:11.20}
+function calc(c){
+let f=[
+{l:10,v:3.2},
+{l:20,v:5.8},
+{l:50,v:8.5},
+{l:Infinity,v:12.9}
 ];
-
-let total = 0;
-let ant = 0;
-
-for(let f of faixas){
-if(consumo > ant){
-let uso = Math.min(consumo, f.lim) - ant;
-total += uso * f.valor;
-ant = f.lim;
+let t=0,a=0;
+for(let x of f){
+if(c>a){
+let u=Math.min(c,x.l)-a;
+t+=u*x.v;
+a=x.l;
 }
 }
-return total;
+return t;
 }
 
-/* cálculo */
 function calcular(){
 
-let li = +document.getElementById("li").value || 0;
-let lf = +document.getElementById("lf").value || 0;
+let mor=+document.getElementById("moradores").value||1;
+let eco=+document.getElementById("economias").value||1;
+let des=+document.getElementById("desempregados").value||0;
+let renda=document.getElementById("renda").value||"";
 
-let moradores = +document.getElementById("moradores").value || 1;
-let economias = +document.getElementById("economias").value || 1;
+let li=+document.getElementById("li").value||0;
+let lf=+document.getElementById("lf").value||0;
 
-let renda = document.getElementById("renda").value || "";
-let desemp = +document.getElementById("desempregados").value || 0;
+let dest=document.getElementById("destino").value;
 
-let destino = document.getElementById("destino").value;
+let consumo=lf-li;
+if(consumo<=0) consumo=mor*5;
 
-let dataIni = document.getElementById("dataIni").value;
-let dataFim = document.getElementById("dataFim").value;
+let consumoPessoa=consumo/mor;
+let consumoEco=consumo/eco;
 
-/* consumo base */
-let consumo = lf - li;
-if(consumo <= 0) consumo = moradores * 5;
+let agua=calc(consumoEco);
+let esgoto=agua;
 
-/* ajuste por economias */
-let consumoFinal = consumo / economias;
+let alertas=[];
 
-/* valores */
-let agua = tarifa(consumoFinal);
-let esgoto = (destino === "rede") ? agua : 0;
-
-/* ALERTAS */
-let alertas = [];
-
-/* consumo */
-if(consumoFinal > 250) alertas.push("🔴 Vazamento provável");
-else if(consumoFinal > 150) alertas.push("🟡 Consumo elevado");
+if(consumoEco>250) alertas.push("🔴 Vazamento provável");
+else if(consumoEco>150) alertas.push("🟡 Consumo elevado");
 else alertas.push("🟢 Normal");
 
-/* social */
-let rendaNum = renda.replace(/\D/g,"");
-if((rendaNum && rendaNum < 200000) || desemp > 0){
+if((renda.replace(/\D/g,"")<200000)||des>0){
 alertas.push("💙 Tarifa social possível");
 }
 
-/* esgoto */
-if(destino !== "rede"){
-alertas.push("🚫 Esgoto não coletado pela rede");
+if(dest!=="rede"){
+alertas.push("🚫 Esgoto não coletado");
 }
 
-/* LEQUE VISUAL */
-document.getElementById("resultado").innerHTML = `
-<div class="resultado">
+document.getElementById("resultado").innerHTML=`
 
-<b>📊 LAUDO ÁGUA JUSTA</b><br><br>
+<div class="box"><b>📊 LAUDO TÉCNICO</b></div>
 
-<div class="box">📅 Período: ${dataIni || "-"} até ${dataFim || "-"}</div>
+<div class="box">Consumo: ${consumo} m³</div>
+<div class="box">Por pessoa: ${consumoPessoa.toFixed(2)} m³</div>
+<div class="box">Por economia: ${consumoEco.toFixed(2)} m³</div>
 
-<div class="box">💧 Consumo bruto: ${consumo} m³</div>
+<div class="box">Água: R$ ${agua.toFixed(2)}</div>
+<div class="box">Esgoto: R$ ${esgoto.toFixed(2)}</div>
 
-<div class="box">🏠 Economias: ${economias}</div>
-
-<div class="box">📊 Consumo ajustado: ${consumoFinal.toFixed(2)} m³</div>
-
-<div class="box">💰 Água: R$ ${agua.toFixed(2)}</div>
-
-<div class="box">🚽 Esgoto: R$ ${esgoto.toFixed(2)}</div>
-
-<div class="box"><b>💵 Total: R$ ${(agua+esgoto).toFixed(2)}</b></div>
+<div class="box"><b>Total: R$ ${(agua+esgoto).toFixed(2)}</b></div>
 
 <div class="box">
 <b>⚠️ ALERTAS</b><br>
 ${alertas.map(a=>"• "+a).join("<br>")}
 </div>
 
+<div class="box">
+⚠️ Sistema independente sem vínculo com concessionárias ou órgãos públicos
 </div>
+
+<button onclick="gerarLaudo()">📄 Baixar / Imprimir Laudo</button>
+
+<button onclick="copiarPix()">📋 Copiar PIX</button>
+
+<div class="pixbox" id="pix">
+00020126360014br.gov.bcb.pix...
+</div>
+
 `;
+
+}
+
+function copiarPix(){
+let pix=document.getElementById("pix").innerText;
+navigator.clipboard.writeText(pix);
+alert("PIX copiado 💙");
+}
+
+function gerarLaudo(){
+window.print();
 }
 
 </script>
