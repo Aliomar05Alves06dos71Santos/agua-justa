@@ -41,12 +41,12 @@ font-size:16px;
 .amarelo{background:#fff3cd;}
 .vermelho{background:#f8d7da;font-weight:bold;}
 
-.pdv {
-background:#fff3cd;
+.box {
+background:#f8f9fa;
 padding:10px;
+border-radius:6px;
 margin-top:10px;
-border-left:5px solid #ffc107;
-font-size:13px;
+border-left:4px solid #0077cc;
 }
 </style>
 </head>
@@ -60,29 +60,17 @@ font-size:13px;
 
 <h2>💧 Água Justa ⚖️💧</h2>
 
-<p><b>Verifique se sua conta de água está correta de forma simples e rápida.</b></p>
+<p><b>Verifique sua conta de água com análise técnica simples.</b></p>
 
 <p>
-💸 Identifique possíveis cobranças indevidas<br>
-🚽 Verifique a cobrança de esgoto<br>
-🏠 Confira economias/residências cadastradas<br>
-🔎 Detecte possíveis erros cadastrais<br>
-📉 Entenda se o valor da conta está acima do esperado
+💸 Cobranças indevidas<br>
+🚽 Esgoto e tarifa aplicada<br>
+🏠 Economias cadastradas<br>
+🔎 Erros de cadastro<br>
+📉 Consumo fora do padrão
 </p>
 
 <button onclick="next(2)">Iniciar análise</button>
-
-<br><br>
-
-<div style="font-size:13px;text-align:center;">
-👨🏽‍🔧 Aliomar Alves dos Santos<br>
-Especialista em Saneamento Básico
-</div>
-
-<div class="pdv">
-⚠️ Resultado informativo<br>
-🔒 Dados não são armazenados
-</div>
 
 </div>
 
@@ -101,11 +89,13 @@ Especialista em Saneamento Básico
 </div>
 
 <div class="campo">
-<label>Categoria</label>
-<select id="categoria">
-<option value="residencial">Residencial</option>
-<option value="social">Social</option>
-<option value="comercial">Comercial</option>
+<label>Economias / Residências</label>
+<select id="economias">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
 </select>
 </div>
 
@@ -113,18 +103,6 @@ Especialista em Saneamento Básico
 <label>Moradores</label>
 <select id="moradores">
 <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-</select>
-</div>
-
-<!-- NOVO CAMPO IMPORTANTE -->
-<div class="campo">
-<label>Economias / Residências</label>
-<select id="economias">
-<option value="1">1 economia</option>
-<option value="2">2 economias</option>
-<option value="3">3 economias</option>
-<option value="4">4 economias</option>
-<option value="5">5 economias</option>
 </select>
 </div>
 
@@ -136,7 +114,7 @@ Especialista em Saneamento Básico
 </div>
 
 <div class="campo">
-<label>Renda familiar (R$)</label>
+<label>Renda familiar</label>
 <input id="renda" type="text">
 </div>
 
@@ -168,7 +146,7 @@ Especialista em Saneamento Básico
 <label>Destino do esgoto</label>
 <select id="destino">
 <option value="rede">Rede pública</option>
-<option value="fossa">Fossa</option>
+<option value="fossa">Fossa séptica</option>
 <option value="corrego">Córrego</option>
 <option value="ceu">Céu aberto</option>
 </select>
@@ -201,29 +179,29 @@ document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
 document.getElementById("t"+n).classList.add("ativa");
 }
 
-/* TARIFA BASE ARSESP (estrutura progressiva simplificada) */
+/* TARIFA ARSESP (estrutura progressiva realista) */
 function tarifa(consumo){
 let faixas = [
-{lim:10, valor:2.50},
-{lim:20, valor:4.50},
-{lim:50, valor:7.50},
-{lim:Infinity, valor:10.00}
+{lim:10, valor:2.60},
+{lim:20, valor:4.90},
+{lim:50, valor:7.80},
+{lim:Infinity, valor:11.20}
 ];
 
 let total = 0;
-let anterior = 0;
+let ant = 0;
 
 for(let f of faixas){
-if(consumo > anterior){
-let uso = Math.min(consumo, f.lim) - anterior;
+if(consumo > ant){
+let uso = Math.min(consumo, f.lim) - ant;
 total += uso * f.valor;
-anterior = f.lim;
+ant = f.lim;
 }
 }
 return total;
 }
 
-/* cálculo principal */
+/* cálculo */
 function calcular(){
 
 let li = +document.getElementById("li").value || 0;
@@ -240,50 +218,60 @@ let destino = document.getElementById("destino").value;
 let dataIni = document.getElementById("dataIni").value;
 let dataFim = document.getElementById("dataFim").value;
 
-/* consumo */
+/* consumo base */
 let consumo = lf - li;
 if(consumo <= 0) consumo = moradores * 5;
 
 /* ajuste por economias */
-let consumoAjustado = consumo / economias;
+let consumoFinal = consumo / economias;
 
-let valorAgua = tarifa(consumoAjustado);
-let valorEsgoto = (destino === "rede") ? valorAgua : 0;
+/* valores */
+let agua = tarifa(consumoFinal);
+let esgoto = (destino === "rede") ? agua : 0;
 
 /* ALERTAS */
 let alertas = [];
 
-if(consumo > 250) alertas.push("🔴 Possível vazamento");
-else if(consumo > 150) alertas.push("🟡 Consumo elevado");
+/* consumo */
+if(consumoFinal > 250) alertas.push("🔴 Vazamento provável");
+else if(consumoFinal > 150) alertas.push("🟡 Consumo elevado");
 else alertas.push("🟢 Normal");
 
+/* social */
 let rendaNum = renda.replace(/\D/g,"");
 if((rendaNum && rendaNum < 200000) || desemp > 0){
-alertas.push("💙 Possível tarifa social");
+alertas.push("💙 Tarifa social possível");
 }
 
+/* esgoto */
 if(destino !== "rede"){
-alertas.push("🚫 Sem cobrança de esgoto");
+alertas.push("🚫 Esgoto não coletado pela rede");
 }
 
-/* resultado */
+/* LEQUE VISUAL */
 document.getElementById("resultado").innerHTML = `
 <div class="resultado">
 
 <b>📊 LAUDO ÁGUA JUSTA</b><br><br>
 
-📅 ${dataIni || "-"} até ${dataFim || "-"}<br><br>
+<div class="box">📅 Período: ${dataIni || "-"} até ${dataFim || "-"}</div>
 
-Consumo: ${consumo} m³<br>
-Economias: ${economias}<br>
-Consumo ajustado: ${consumoAjustado.toFixed(2)}<br><br>
+<div class="box">💧 Consumo bruto: ${consumo} m³</div>
 
-Água: R$ ${valorAgua.toFixed(2)}<br>
-Esgoto: R$ ${valorEsgoto.toFixed(2)}<br>
-<b>Total: R$ ${(valorAgua+valorEsgoto).toFixed(2)}</b><br><br>
+<div class="box">🏠 Economias: ${economias}</div>
 
+<div class="box">📊 Consumo ajustado: ${consumoFinal.toFixed(2)} m³</div>
+
+<div class="box">💰 Água: R$ ${agua.toFixed(2)}</div>
+
+<div class="box">🚽 Esgoto: R$ ${esgoto.toFixed(2)}</div>
+
+<div class="box"><b>💵 Total: R$ ${(agua+esgoto).toFixed(2)}</b></div>
+
+<div class="box">
 <b>⚠️ ALERTAS</b><br>
 ${alertas.map(a=>"• "+a).join("<br>")}
+</div>
 
 </div>
 `;
