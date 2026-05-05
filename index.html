@@ -7,7 +7,7 @@
 
 <style>
 body {font-family:Arial;background:#e6f7ff;margin:0;}
-.container {max-width:520px;margin:auto;background:#fff;padding:15px;min-height:100vh;}
+.container {max-width:500px;margin:auto;background:#fff;padding:15px;min-height:100vh;}
 
 .tela {display:none;}
 .ativa {display:block;}
@@ -32,6 +32,7 @@ color:white;
 border:none;
 border-radius:6px;
 font-size:16px;
+cursor:pointer;
 }
 
 .nav {display:flex;gap:10px;}
@@ -40,15 +41,6 @@ font-size:16px;
 .verde{background:#d4edda;}
 .amarelo{background:#fff3cd;}
 .vermelho{background:#f8d7da;font-weight:bold;}
-
-.pixbox {
-background:#000;
-color:#0f0;
-padding:10px;
-font-size:12px;
-word-break:break-all;
-border-radius:6px;
-}
 
 .pdv {
 background:#fff3cd;
@@ -64,7 +56,7 @@ font-size:13px;
 
 <div class="container">
 
-<!-- TELA 1 -->
+<!-- TELA 1 (RESTO ORIGINAL) -->
 <div class="tela ativa" id="t1">
 
 <h2>💧 Água Justa ⚖️💧</h2>
@@ -74,21 +66,33 @@ font-size:13px;
 <p>
 💸 Identifique possíveis cobranças indevidas<br>
 🚽 Verifique cobrança de esgoto<br>
-🏠 Confira cadastro de residências<br>
-🔎 Detecte erros cadastrais<br>
-📉 Analise se o valor está acima do esperado
+🏠 Confira economias/residências cadastradas<br>
+🔎 Detecte possíveis erros cadastrais<br>
+📉 Entenda se o valor da conta está acima do esperado
 </p>
 
 <p>
-📊 Sistema baseado em critérios técnicos de saneamento<br>
-📑 Pode auxiliar em revisão de contas e reclamações
+📊 Análise baseada em critérios técnicos de saneamento<br>
+📑 Pode auxiliar em revisões cadastrais
 </p>
 
 <p>
-📆 Uso gratuito para análise de consumo e tarifa
+📆 Utilize sempre que quiser para acompanhar seu consumo
 </p>
 
 <button onclick="next(2)">Iniciar análise</button>
+
+<br><br>
+
+<div style="font-size:13px;text-align:center;">
+👨🏽‍🔧 Aliomar Alves dos Santos<br>
+Especialista em Saneamento Básico
+</div>
+
+<div class="pdv">
+⚠️ Resultado informativo<br>
+🔒 Seus dados não são armazenados
+</div>
 
 </div>
 
@@ -102,7 +106,7 @@ font-size:13px;
 <select id="ligacao">
 <option value="agua">Água</option>
 <option value="agua_esgoto">Água e Esgoto</option>
-<option value="esgoto">Apenas Esgoto</option>
+<option value="esgoto">Esgoto</option>
 </select>
 </div>
 
@@ -111,7 +115,7 @@ font-size:13px;
 <select id="categoria">
 <option value="normal">Residencial Normal</option>
 <option value="social">Residencial Social</option>
-<option value="vulneravel">Residencial Vulnerável</option>
+<option value="vulneravel">Vulnerável</option>
 <option value="comercial">Comercial</option>
 </select>
 </div>
@@ -119,20 +123,27 @@ font-size:13px;
 <div class="campo">
 <label>Moradores</label>
 <select id="moradores">
-<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
 </select>
 </div>
 
 <div class="campo">
 <label>Desempregados</label>
 <select id="desempregados">
-<option>0</option><option>1</option><option>2</option>
+<option value="0">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
 </select>
 </div>
 
 <div class="campo">
 <label>Renda familiar (R$)</label>
-<input id="renda" type="text">
+<input id="renda" type="text" placeholder="R$ 0,00">
 </div>
 
 <div class="nav">
@@ -150,20 +161,12 @@ font-size:13px;
 <div class="campo">
 <label>Leitura inicial</label>
 <input id="li" type="number">
-</div>
-
-<div class="campo">
-<label>Data inicial</label>
 <input id="dataIni" type="date">
 </div>
 
 <div class="campo">
 <label>Leitura final</label>
 <input id="lf" type="number">
-</div>
-
-<div class="campo">
-<label>Data final</label>
 <input id="dataFim" type="date">
 </div>
 
@@ -171,9 +174,9 @@ font-size:13px;
 <label>Destino do esgoto</label>
 <select id="destino">
 <option value="rede">Rede pública</option>
-<option value="fossa">Fossa séptica</option>
+<option value="fossa">Fossa</option>
 <option value="corrego">Córrego</option>
-<option value="ceu">A céu aberto</option>
+<option value="ceu">Céu aberto</option>
 </select>
 </div>
 
@@ -186,20 +189,11 @@ font-size:13px;
 
 <!-- TELA 4 -->
 <div class="tela" id="t4">
+
 <h3>Resultado</h3>
 <div id="resultado"></div>
-<button onclick="next(5)">💙 Apoiar projeto</button>
-</div>
 
-<!-- TELA 5 -->
-<div class="tela" id="t5">
-
-<h3>Apoio voluntário</h3>
-
-<button onclick="copiarPix()">📋 Copiar PIX</button>
-<p id="status"></p>
-
-<button onclick="window.print()">📄 Imprimir</button>
+<button onclick="next(1)">Nova análise</button>
 
 </div>
 
@@ -207,86 +201,66 @@ font-size:13px;
 
 <script>
 
+/* NAV */
 function next(n){
 document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
 document.getElementById("t"+n).classList.add("ativa");
 }
 
-function copiarPix(){
-navigator.clipboard.writeText("00020126360014br.gov.bcb.pix...");
-document.getElementById("status").innerText = "PIX copiado 💙";
-}
-
+/* CALCULO COMPLETO */
 function calcular(){
-
-let mor = +document.getElementById("moradores").value || 1;
-let des = +document.getElementById("desempregados").value || 0;
 
 let li = +document.getElementById("li").value || 0;
 let lf = +document.getElementById("lf").value || 0;
-
-let ini = document.getElementById("dataIni").value;
-let fim = document.getElementById("dataFim").value;
-
+let mor = +document.getElementById("moradores").value || 1;
+let desemp = +document.getElementById("desempregados").value || 0;
+let renda = document.getElementById("renda").value || "";
 let ligacao = document.getElementById("ligacao").value;
 let destino = document.getElementById("destino").value;
+let dataIni = document.getElementById("dataIni").value;
+let dataFim = document.getElementById("dataFim").value;
 
+/* consumo */
 let consumo = lf - li;
 if(consumo <= 0) consumo = mor * 5;
 
-let consumoPessoa = consumo / mor;
-let consumoDia = (consumoPessoa * 1000) / 30;
+let pessoa = consumo / mor;
+let dia = (pessoa * 1000) / 30;
 
 /* ALERTAS */
 let alertas = [];
 
 /* consumo */
-if(consumoDia > 250){
-alertas.push("🔴 Possível vazamento");
-}else if(consumoDia > 150){
-alertas.push("🟡 Consumo elevado");
-}else{
-alertas.push("🟢 Normal");
-}
+if(dia > 250) alertas.push("🔴 Vazamento provável");
+else if(dia > 150) alertas.push("🟡 Consumo elevado");
+else alertas.push("🟢 Consumo normal");
 
 /* tarifa social */
-let renda = document.getElementById("renda").value || "";
 let rendaNum = renda.replace(/\D/g,"");
-
-if((rendaNum && rendaNum < 200000) || des > 0){
+if((rendaNum && rendaNum < 200000) || desemp > 0){
 alertas.push("💙 Possível tarifa social");
 }
 
 /* esgoto */
-if(ligacao !== "agua" && ["fossa","corrego","ceu"].includes(destino)){
-alertas.push("🚫 Esgoto não coletado corretamente");
+if(destino !== "rede"){
+alertas.push("🚫 Esgoto não tratado pela rede pública");
 }
 
-/* status */
-let status = "Normal";
-let classe = "verde";
-
-if(consumoDia > 250){status="Vazamento";classe="vermelho";}
-else if(consumoDia > 150){status="Alto consumo";classe="amarelo";}
-
-document.getElementById("resultado").className = "resultado " + classe;
-
+/* resultado */
 document.getElementById("resultado").innerHTML = `
+<div class="resultado">
+
 <b>📊 LAUDO TÉCNICO</b><br><br>
 
-📅 ${ini || "-"} até ${fim || "-"}<br><br>
+📅 Período: ${dataIni || "-"} até ${dataFim || "-"}<br><br>
 
-Consumo: ${consumo} m³<br>
-Por pessoa: ${consumoPessoa.toFixed(2)} m³<br><br>
-
-Status: ${status}<br><br>
+Consumo total: ${consumo} m³<br>
+Por pessoa: ${pessoa.toFixed(2)} m³<br>
+Dia: ${dia.toFixed(1)} L<br><br>
 
 <b>⚠️ ALERTAS</b><br>
-${alertas.map(a=>"• "+a).join("<br>")}<br><br>
+${alertas.map(a=>"• "+a).join("<br>")}
 
-<div class="pixbox">
-💙 PIX VOLUNTÁRIO<br>
-00020126360014br.gov.bcb.pix...
 </div>
 `;
 }
@@ -295,4 +269,3 @@ ${alertas.map(a=>"• "+a).join("<br>")}<br><br>
 
 </body>
 </html>
-
