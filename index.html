@@ -1,62 +1,131 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Água Justa ⚖️💧</title>
 
 <style>
-body {font-family:Arial;background:#e6f7ff;margin:0;}
-.container {max-width:520px;margin:auto;background:#fff;padding:15px;min-height:100vh;}
 
-.tela {display:none;}
-.ativa {display:block;}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#dff4f7;
+color:#1d2b36;
+}
 
-h2,h3{text-align:center;}
+.container{
+max-width:520px;
+margin:auto;
+padding:18px;
+min-height:100vh;
+background:#eef9fb;
+}
 
-.campo{display:flex;flex-direction:column;margin-bottom:10px;}
+.tela{
+display:none;
+animation:fade .3s;
+}
+
+.tela.ativa{
+display:block;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(8px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+h2,h3{
+text-align:center;
+color:#155d74;
+}
+
+.campo{
+display:flex;
+flex-direction:column;
+margin-bottom:12px;
+}
+
+label{
+margin-bottom:5px;
+font-weight:bold;
+}
 
 input,select{
-padding:12px;
+padding:13px;
 font-size:16px;
-border-radius:6px;
-border:1px solid #ccc;
+border-radius:10px;
+border:1px solid #c8dfe5;
+background:#fff;
+outline:none;
+box-sizing:border-box;
 }
 
 button{
 width:100%;
 padding:14px;
 margin-top:10px;
-background:#0077cc;
-color:#fff;
 border:none;
-border-radius:6px;
+border-radius:10px;
+background:#2b93b3;
+color:#fff;
 font-size:16px;
+font-weight:bold;
+cursor:pointer;
 }
 
-.nav{display:flex;gap:10px;}
+.nav{
+display:flex;
+gap:10px;
+}
 
 .box{
-background:#f4f4f4;
-padding:10px;
-border-left:4px solid #0077cc;
-margin-top:10px;
-border-radius:6px;
+background:#fff;
+padding:14px;
+border-radius:10px;
+margin-top:12px;
+border-left:5px solid #69b8cf;
 }
 
-.verde{background:#d4edda;}
-.amarelo{background:#fff3cd;}
-.vermelho{background:#f8d7da;font-weight:bold;}
+.verde{
+background:#dff7e5;
+border-left:5px solid #67c081;
+}
+
+.amarelo{
+background:#fff8d9;
+border-left:5px solid #d6b74a;
+}
+
+.vermelho{
+background:#ffe3e3;
+border-left:5px solid #d14b4b;
+}
 
 .pixbox{
-background:#000;
-color:#0f0;
+background:#10242d;
+color:#00ff88;
 padding:10px;
+border-radius:10px;
 font-size:12px;
-border-radius:6px;
 word-break:break-all;
 margin-top:10px;
 }
+
+.rodape{
+text-align:center;
+font-size:13px;
+margin-top:30px;
+color:#47606d;
+}
+
+small{
+color:#5f6f78;
+}
+
 </style>
 </head>
 
@@ -64,35 +133,26 @@ margin-top:10px;
 
 <div class="container">
 
-<!-- TELA 1 (FIEL À ORIGINAL) -->
+<!-- TELA 1 -->
+
 <div class="tela ativa" id="t1">
 
 <h2>💧 Água Justa ⚖️💧</h2>
 
-<p><b>Verifique se sua conta de água está correta de forma simples e rápida.</b></p>
+<p><b>Verifique possíveis erros na sua conta de água e esgoto.</b></p>
 
-<p>
-💸 Identifique possíveis cobranças indevidas<br>
-🚽 Verifique a cobrança de esgoto<br>
-🏠 Confira economias/residências cadastradas<br>
-🔎 Detecte possíveis erros cadastrais<br>
-📉 Entenda se o valor da conta está acima do esperado
-</p>
-
-<p>
-📊 Análise baseada em critérios técnicos de saneamento<br>
-📑 Pode auxiliar em revisões cadastrais
-</p>
-
-<p>
-📆 Utilize sempre que quiser para acompanhar seu consumo
-</p>
+<div class="box verde">
+💸 Identifique cobranças indevidas<br>
+🚽 Verifique esgoto<br>
+📊 Consumo por pessoa<br>
+🏠 Economias cadastradas<br>
+🚨 Possíveis vazamentos<br>
+💙 Possível tarifa social
+</div>
 
 <button onclick="next(2)">Iniciar análise</button>
 
-<br><br>
-
-<div style="text-align:center;font-size:13px">
+<div class="rodape">
 👨🏽‍🔧 Aliomar Alves dos Santos<br>
 Especialista em Saneamento Básico
 </div>
@@ -100,43 +160,92 @@ Especialista em Saneamento Básico
 </div>
 
 <!-- TELA 2 -->
+
 <div class="tela" id="t2">
 
-<h3>Dados principais</h3>
+<h3>Dados da ligação</h3>
+
+<div class="campo">
+<label>Região tarifária</label>
+<select id="regiao">
+
+<option value="metropolitana">Metropolitana</option>
+<option value="regional">Regional</option>
+
+</select>
+</div>
 
 <div class="campo">
 <label>Tipo de ligação</label>
+
 <select id="ligacao">
-<option value="agua_esgoto">Água e Esgoto</option>
 <option value="agua">Água</option>
-<option value="esgoto">Esgoto</option>
+<option value="agua_esgoto">Água + Esgoto</option>
+<option value="esgoto">Somente esgoto</option>
 </select>
+
+</div>
+
+<div class="campo">
+<label>Categoria</label>
+
+<select id="categoria">
+
+<option value="residencial_normal">Residencial normal</option>
+
+<option value="residencial_social">Residencial social</option>
+
+<option value="comercial">Comercial</option>
+
+<option value="industrial">Industrial</option>
+
+<option value="publica">Pública</option>
+
+</select>
+
+</div>
+
+<div class="campo">
+<label>Destino do esgoto</label>
+
+<select id="destino">
+
+<option value="rede">Rede coletora</option>
+<option value="fossa">Fossa</option>
+<option value="ceu">A céu aberto</option>
+<option value="corrego">Córrego</option>
+<option value="gap">Galeria pluvial</option>
+
+</select>
+
 </div>
 
 <div class="campo">
 <label>Economias</label>
-<select id="economias">
-<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-</select>
+
+<select id="economias"></select>
+
 </div>
 
 <div class="campo">
 <label>Moradores</label>
-<select id="moradores">
-<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-</select>
+
+<select id="moradores"></select>
+
 </div>
 
 <div class="campo">
 <label>Desempregados</label>
-<select id="desempregados">
-<option>0</option><option>1</option><option>2</option><option>3</option>
-</select>
+
+<select id="desempregados"></select>
+
 </div>
 
 <div class="campo">
 <label>Renda familiar</label>
-<input id="renda" type="text">
+
+<input type="text" id="renda" placeholder="R$ 0,00" oninput="formatarMoeda(this)">
+
 </div>
 
 <div class="nav">
@@ -146,44 +255,80 @@ Especialista em Saneamento Básico
 
 </div>
 
-<!-- TELA 3 -->
+<!-- SUBSTITUIR A TELA 3 PELA VERSÃO ABAIXO -->
+
 <div class="tela" id="t3">
 
-<h3>Consumo</h3>
+<h3>📊 Consumo e Leituras</h3>
 
-<div class="campo">
-<label>Leitura inicial</label>
-<input id="li" type="number">
-<input id="di" type="date">
+<div class="box verde">
+<b>📅 Informe as leituras reais da conta</b><br><br>
+
+O sistema calculará:
+<br><br>
+
+💧 consumo total<br>
+👤 consumo por pessoa<br>
+📆 média diária<br>
+🚨 possíveis inconsistências<br>
+🎨 faixa de consumo destacada
 </div>
 
 <div class="campo">
-<label>Leitura final</label>
-<input id="lf" type="number">
-<input id="df" type="date">
+<label>📅 Data da leitura inicial</label>
+<input type="date" id="di">
 </div>
 
 <div class="campo">
-<label>Destino do esgoto</label>
-<select id="destino">
-<option value="rede">Rede</option>
-<option value="fossa">Fossa</option>
-<option value="corrego">Córrego</option>
-<option value="ceu">A céu aberto</option>
-</select>
+<label>🔢 Leitura inicial</label>
+<input type="number" id="li">
+</div>
+
+<div class="campo">
+<label>📅 Data da leitura final</label>
+<input type="date" id="df">
+</div>
+
+<div class="campo">
+<label>🔢 Leitura final</label>
+<input type="number" id="lf">
+</div>
+
+<div class="box">
+
+<b>🎨 Faixas de consumo</b><br><br>
+
+<div id="faixa1" class="box verde">
+Até 10 m³ → Consumo baixo / normal
+</div>
+
+<div id="faixa2" class="box">
+11 a 20 m³ → Consumo moderado
+</div>
+
+<div id="faixa3" class="box">
+21 a 50 m³ → Consumo elevado
+</div>
+
+<div id="faixa4" class="box">
+Acima de 50 m³ → Consumo muito elevado
+</div>
+
 </div>
 
 <div class="nav">
 <button onclick="next(2)">Voltar</button>
-<button onclick="calcular(); next(4)">Calcular</button>
+<button onclick="calcular();next(4)">Gerar laudo</button>
 </div>
 
 </div>
 
 <!-- TELA 4 -->
+
 <div class="tela" id="t4">
 
 <h3>Resultado</h3>
+
 <div id="resultado"></div>
 
 </div>
@@ -193,108 +338,380 @@ Especialista em Saneamento Básico
 <script>
 
 function next(n){
-document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
+
+document.querySelectorAll(".tela").forEach(t=>{
+t.classList.remove("ativa");
+});
+
 document.getElementById("t"+n).classList.add("ativa");
+
 }
 
-function calc(c){
-let f=[
-{l:10,v:3.2},
-{l:20,v:5.8},
-{l:50,v:8.5},
-{l:Infinity,v:12.9}
-];
-let t=0,a=0;
-for(let x of f){
-if(c>a){
-let u=Math.min(c,x.l)-a;
-t+=u*x.v;
-a=x.l;
+function preencher(id,max,min=0){
+
+let s=document.getElementById(id);
+
+for(let i=min;i<=max;i++){
+
+let o=document.createElement("option");
+o.value=i;
+o.innerHTML=i;
+
+s.appendChild(o);
+
 }
+
 }
-return t;
+
+preencher("economias",100,1);
+preencher("moradores",20,1);
+preencher("desempregados",10,0);
+
+function formatarMoeda(campo){
+
+let v=campo.value.replace(/\D/g,'');
+
+v=(v/100).toFixed(2)+'';
+
+v=v.replace(".",",");
+
+v=v.replace(/\B(?=(\d{3})+(?!\d))/g,".");
+
+campo.value='R$ '+v;
+
 }
+
+const tarifas={
+
+residencial_normal:{
+agua:[
+{ate:10,valor:16.82,fixa:true},
+{ate:20,valor:2.63},
+{ate:50,valor:6.57},
+{ate:9999,valor:7.24}
+],
+esgoto:[
+{ate:10,valor:16.82,fixa:true},
+{ate:20,valor:2.63},
+{ate:50,valor:6.57},
+{ate:9999,valor:7.24}
+]
+},
+
+residencial_social:{
+agua:[
+{ate:10,valor:5.70,fixa:true},
+{ate:20,valor:0.99},
+{ate:30,valor:3.48},
+{ate:50,valor:4.97},
+{ate:9999,valor:5.49}
+],
+esgoto:[
+{ate:10,valor:5.70,fixa:true},
+{ate:20,valor:0.99},
+{ate:30,valor:3.48},
+{ate:50,valor:4.97},
+{ate:9999,valor:5.49}
+]
+},
+
+comercial:{
+agua:[
+{ate:10,valor:33.78,fixa:true},
+{ate:20,valor:6.57},
+{ate:50,valor:12.59},
+{ate:9999,valor:13.12}
+],
+esgoto:[
+{ate:10,valor:33.78,fixa:true},
+{ate:20,valor:6.57},
+{ate:50,valor:12.59},
+{ate:9999,valor:13.12}
+]
+},
+
+industrial:{
+agua:[
+{ate:10,valor:33.78,fixa:true},
+{ate:20,valor:6.57},
+{ate:50,valor:12.59},
+{ate:9999,valor:13.12}
+],
+esgoto:[
+{ate:10,valor:33.78,fixa:true},
+{ate:20,valor:6.57},
+{ate:50,valor:12.59},
+{ate:9999,valor:13.12}
+]
+},
+
+publica:{
+agua:[
+{ate:10,valor:25.31,fixa:true},
+{ate:20,valor:4.92},
+{ate:50,valor:9.47},
+{ate:9999,valor:9.84}
+],
+esgoto:[
+{ate:10,valor:25.31,fixa:true},
+{ate:20,valor:4.92},
+{ate:50,valor:9.47},
+{ate:9999,valor:9.84}
+]
+}
+
+};
+
+function calcularFaixas(consumo,tabela){
+
+let total=0;
+let anterior=0;
+
+for(let faixa of tabela){
+
+if(consumo<=anterior) break;
+
+if(faixa.fixa){
+
+total+=faixa.valor;
+
+}else{
+
+let usado=Math.min(consumo,faixa.ate)-anterior;
+
+if(usado>0){
+
+total+=usado*faixa.valor;
+
+}
+
+}
+
+anterior=faixa.ate;
+
+}
+
+return total;
+
+}
+
+// SUBSTITUIR A FUNÇÃO calcular() PELA VERSÃO ABAIXO
 
 function calcular(){
 
-let mor=+document.getElementById("moradores").value||1;
-let eco=+document.getElementById("economias").value||1;
-let des=+document.getElementById("desempregados").value||0;
-let renda=document.getElementById("renda").value||"";
+let moradores=+document.getElementById("moradores").value||1;
+
+let economias=+document.getElementById("economias").value||1;
+
+let desempregados=+document.getElementById("desempregados").value||0;
+
+let renda=document.getElementById("renda").value.replace(/\D/g,'');
+
+let ligacao=document.getElementById("ligacao").value;
+
+let categoria=document.getElementById("categoria").value;
+
+let destino=document.getElementById("destino").value;
 
 let li=+document.getElementById("li").value||0;
+
 let lf=+document.getElementById("lf").value||0;
 
-let dest=document.getElementById("destino").value;
+let di=document.getElementById("di").value;
+
+let df=document.getElementById("df").value;
 
 let consumo=lf-li;
-if(consumo<=0) consumo=mor*5;
 
-let consumoPessoa=consumo/mor;
-let consumoEco=consumo/eco;
+if(consumo<=0){
+consumo=moradores*5;
+}
 
-let agua=calc(consumoEco);
-let esgoto=agua;
+let dias=30;
+
+if(di && df){
+
+let d1=new Date(di);
+let d2=new Date(df);
+
+dias=Math.ceil((d2-d1)/(1000*60*60*24));
+
+if(dias<=0){
+dias=30;
+}
+
+}
+
+let consumoPessoa=consumo/moradores;
+
+let consumoEconomia=consumo/economias;
+
+let tabela=tarifas[categoria];
+
+let agua=0;
+let esgoto=0;
+
+if(ligacao!=="esgoto"){
+agua=calcularFaixas(consumoEconomia,tabela.agua)*economias;
+}
+
+if(ligacao!=="agua"){
+esgoto=calcularFaixas(consumoEconomia,tabela.esgoto)*economias;
+}
+
+let total=agua+esgoto;
+
+document.getElementById("faixa1").className="box";
+document.getElementById("faixa2").className="box";
+document.getElementById("faixa3").className="box";
+document.getElementById("faixa4").className="box";
+
+let faixaTexto="";
+
+if(consumo<=10){
+
+document.getElementById("faixa1").className="box verde";
+faixaTexto="🟢 Faixa baixa / normal";
+
+}else if(consumo<=20){
+
+document.getElementById("faixa2").className="box amarelo";
+faixaTexto="🟡 Faixa moderada";
+
+}else if(consumo<=50){
+
+document.getElementById("faixa3").className="box vermelho";
+faixaTexto="🟠 Faixa elevada";
+
+}else{
+
+document.getElementById("faixa4").className="box vermelho";
+faixaTexto="🔴 Consumo muito elevado";
+
+}
 
 let alertas=[];
 
-if(consumoEco>250) alertas.push("🔴 Vazamento provável");
-else if(consumoEco>150) alertas.push("🟡 Consumo elevado");
-else alertas.push("🟢 Normal");
+if(consumoPessoa>15){
 
-if((renda.replace(/\D/g,"")<200000)||des>0){
-alertas.push("💙 Tarifa social possível");
+alertas.push("🚨 Possível vazamento ou consumo excessivo.");
+
+}else if(consumoPessoa>10){
+
+alertas.push("⚠️ Consumo acima da média.");
+
+}else{
+
+alertas.push("✅ Consumo dentro da média.");
+
 }
 
-if(dest!=="rede"){
-alertas.push("🚫 Esgoto não coletado");
+if(destino!=="rede" && esgoto>0){
+
+alertas.push("🚫 Possível cobrança indevida de esgoto.");
+
 }
+
+if(consumoPessoa<2){
+
+alertas.push("⚠️ Consumo muito baixo para quantidade de moradores.");
+
+}
+
+if(economias>1){
+
+alertas.push("🏠 Verificar quantidade de economias cadastradas.");
+
+}
+
+if(Number(renda)<250000 || desempregados>0){
+
+alertas.push("💙 Possível enquadramento em tarifa social.");
+
+}
+
+let mediaDia=(consumo/dias).toFixed(2);
 
 document.getElementById("resultado").innerHTML=`
 
-<div class="box"><b>📊 LAUDO TÉCNICO</b></div>
-
-<div class="box">Consumo: ${consumo} m³</div>
-<div class="box">Por pessoa: ${consumoPessoa.toFixed(2)} m³</div>
-<div class="box">Por economia: ${consumoEco.toFixed(2)} m³</div>
-
-<div class="box">Água: R$ ${agua.toFixed(2)}</div>
-<div class="box">Esgoto: R$ ${esgoto.toFixed(2)}</div>
-
-<div class="box"><b>Total: R$ ${(agua+esgoto).toFixed(2)}</b></div>
+<div class="box verde">
+<b>📊 LAUDO TÉCNICO</b>
+</div>
 
 <div class="box">
-<b>⚠️ ALERTAS</b><br>
+<b>📅 Período:</b><br>
+${di || "--"} até ${df || "--"}
+</div>
+
+<div class="box">
+<b>📆 Dias calculados:</b><br>
+${dias} dias
+</div>
+
+<div class="box">
+<b>💧 Consumo total:</b><br>
+${consumo.toFixed(2)} m³
+</div>
+
+<div class="box">
+<b>👤 Consumo por morador:</b><br>
+${consumoPessoa.toFixed(2)} m³
+</div>
+
+<div class="box">
+<b>🏠 Consumo por economia:</b><br>
+${consumoEconomia.toFixed(2)} m³
+</div>
+
+<div class="box">
+<b>📆 Média diária:</b><br>
+${mediaDia} m³/dia
+</div>
+
+<div class="box">
+<b>🎨 Faixa identificada:</b><br>
+${faixaTexto}
+</div>
+
+<div class="box">
+<b>🚰 Água:</b><br>
+R$ ${agua.toFixed(2)}
+</div>
+
+<div class="box">
+<b>🚽 Esgoto:</b><br>
+R$ ${esgoto.toFixed(2)}
+</div>
+
+<div class="box verde">
+<b>💰 Total estimado:</b><br>
+R$ ${total.toFixed(2)}
+</div>
+
+<div class="box amarelo">
+<b>⚠️ Alertas técnicos</b><br><br>
+
 ${alertas.map(a=>"• "+a).join("<br>")}
+
 </div>
 
-<div class="box">
-⚠️ Sistema independente sem vínculo com concessionárias ou órgãos públicos
+<div class="pixbox">
+PIX apoio projeto:<br><br>
+846400000028513700803002011138873770999990001011
 </div>
 
-<button onclick="gerarLaudo()">📄 Baixar / Imprimir Laudo</button>
-
-<button onclick="copiarPix()">📋 Copiar PIX</button>
-
-<div class="pixbox" id="pix">
-00020126360014br.gov.bcb.pix...
-</div>
+<button onclick="window.print()">
+📄 Imprimir / Salvar PDF
+</button>
 
 `;
 
 }
 
-function copiarPix(){
-let pix=document.getElementById("pix").innerText;
-navigator.clipboard.writeText(pix);
-alert("PIX copiado 💙");
-}
-
-function gerarLaudo(){
-window.print();
-}
 
 </script>
 
 </body>
-</html>
+</html> 
+
+
