@@ -1,7 +1,8 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,9 +12,9 @@
 
 body{
 margin:0;
-font-family:Arial,sans-serif;
-background:#dff4f7;
-color:#1d2b36;
+font-family:Arial, sans-serif;
+background:linear-gradient(180deg,#d8f3dc,#dff4f7,#f3eadf);
+color:#23313a;
 }
 
 .container{
@@ -21,7 +22,8 @@ max-width:520px;
 margin:auto;
 padding:18px;
 min-height:100vh;
-background:#eef9fb;
+background:#f8fffc;
+box-shadow:0 0 16px rgba(0,0,0,0.08);
 }
 
 .tela{
@@ -40,7 +42,11 @@ to{opacity:1;transform:translateY(0);}
 
 h2,h3{
 text-align:center;
-color:#155d74;
+color:#1f6f78;
+}
+
+p{
+line-height:1.5;
 }
 
 .campo{
@@ -52,17 +58,24 @@ margin-bottom:12px;
 label{
 margin-bottom:5px;
 font-weight:bold;
+color:#35504d;
 }
 
 input,select{
 padding:13px;
 font-size:16px;
-border-radius:10px;
-border:1px solid #c8dfe5;
-background:#fff;
+border-radius:12px;
+border:1px solid #bdd9c7;
+background:#ffffff;
 outline:none;
 box-sizing:border-box;
-width:100%;
+transition:.2s;
+}
+
+input:focus,
+select:focus{
+border-color:#4caf50;
+box-shadow:0 0 6px rgba(76,175,80,0.25);
 }
 
 button{
@@ -70,12 +83,19 @@ width:100%;
 padding:14px;
 margin-top:10px;
 border:none;
-border-radius:10px;
-background:#2b93b3;
+border-radius:12px;
+background:linear-gradient(135deg,#2d8f85,#4caf50);
 color:#fff;
 font-size:16px;
 font-weight:bold;
 cursor:pointer;
+transition:.2s;
+box-shadow:0 3px 8px rgba(0,0,0,0.12);
+}
+
+button:hover{
+transform:scale(1.01);
+opacity:.96;
 }
 
 .nav{
@@ -84,34 +104,36 @@ gap:10px;
 }
 
 .box{
-background:#fff;
-padding:14px;
-border-radius:10px;
+background:#ffffff;
+padding:12px;
+border-left:5px solid #5aa9c9;
+border-radius:12px;
 margin-top:12px;
-border-left:5px solid #69b8cf;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
 }
 
 .verde{
-background:#dff7e5;
-border-left:5px solid #67c081;
+background:#e5f7e9;
+border-left:5px solid #4caf50;
 }
 
 .amarelo{
-background:#fff8d9;
-border-left:5px solid #d6b74a;
+background:#fff6d9;
+border-left:5px solid #d6a93b;
 }
 
 .vermelho{
-background:#ffe3e3;
-border-left:5px solid #d14b4b;
+background:#ffe5e5;
+border-left:5px solid #c94b4b;
+font-weight:bold;
 }
 
 .pixbox{
-background:#10242d;
-color:#00ff88;
+background:#2f3f3a;
+color:#7dffb2;
 padding:10px;
-border-radius:10px;
 font-size:12px;
+border-radius:8px;
 word-break:break-all;
 margin-top:10px;
 }
@@ -120,145 +142,11 @@ margin-top:10px;
 text-align:center;
 font-size:13px;
 margin-top:30px;
-color:#47606d;
-}
-
-small{
-color:#5f6f78;
+color:#60706c;
 }
 
 </style>
-</head>
- <!DOCTYPE html>
-<html lang="pt-br">
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Água Justa ⚖️💧</title>
-
-<style>
-
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#dff4f7;
-color:#1d2b36;
-}
-
-.container{
-max-width:520px;
-margin:auto;
-padding:18px;
-min-height:100vh;
-background:#eef9fb;
-}
-
-.tela{
-display:none;
-animation:fade .3s;
-}
-
-.tela.ativa{
-display:block;
-}
-
-@keyframes fade{
-from{opacity:0;transform:translateY(8px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-h2,h3{
-text-align:center;
-color:#155d74;
-}
-
-.campo{
-display:flex;
-flex-direction:column;
-margin-bottom:12px;
-}
-
-label{
-margin-bottom:5px;
-font-weight:bold;
-}
-
-input,select{
-padding:13px;
-font-size:16px;
-border-radius:10px;
-border:1px solid #c8dfe5;
-background:#fff;
-outline:none;
-box-sizing:border-box;
-width:100%;
-}
-
-button{
-width:100%;
-padding:14px;
-margin-top:10px;
-border:none;
-border-radius:10px;
-background:#2b93b3;
-color:#fff;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.nav{
-display:flex;
-gap:10px;
-}
-
-.box{
-background:#fff;
-padding:14px;
-border-radius:10px;
-margin-top:12px;
-border-left:5px solid #69b8cf;
-}
-
-.verde{
-background:#dff7e5;
-border-left:5px solid #67c081;
-}
-
-.amarelo{
-background:#fff8d9;
-border-left:5px solid #d6b74a;
-}
-
-.vermelho{
-background:#ffe3e3;
-border-left:5px solid #d14b4b;
-}
-
-.pixbox{
-background:#10242d;
-color:#00ff88;
-padding:10px;
-border-radius:10px;
-font-size:12px;
-word-break:break-all;
-margin-top:10px;
-}
-
-.rodape{
-text-align:center;
-font-size:13px;
-margin-top:30px;
-color:#47606d;
-}
-
-small{
-color:#5f6f78;
-}
-
-</style>
 </head>
 
 <body>
@@ -266,26 +154,36 @@ color:#5f6f78;
 <div class="container">
 
 <!-- TELA 1 -->
-
 <div class="tela ativa" id="t1">
 
 <h2>💧 Água Justa ⚖️💧</h2>
 
-<p><b>Ferramenta digital de análise preliminar de consumo de água e esgoto.</b></p>
+<p><b>Verifique se sua conta de água está correta de forma simples e rápida.</b></p>
 
-<div class="box verde">
-📊 Análise de padrões de consumo<br>
-🚽 Informações de esgoto<br>
-👤 Consumo por morador<br>
-🏠 Consumo por economia<br>
-📆 Médias de consumo<br>
-🚨 Indicadores técnicos preliminares
-</div>
+<p>
+📉 Identifica possíveis divergências de consumo e cadastro
+🚽 Verifique a cobrança de esgoto<br>
+🏠 Confira economias/residências cadastradas<br>
+🔎 Detecte possíveis erros cadastrais<br>
+📉 Entenda se o valor da conta está acima do esperado,
+
+</p>
+
+<p>
+🚦 Controle e acompanhe seu consumo de forma simples, preventiva e contínua
+</p>
+
+📊 Ferramenta de apoio à análise preliminar de consumo, cadastro e faturamento
+📑 Pode auxiliar em revisões cadastrais
+</p>
+
+<p>📆 Utilize sempre que quiser para acompanhar seu consumo</p>
 
 <button onclick="next(2)">Iniciar análise</button>
 
 <div class="rodape">
-Projeto independente de apoio ao autoatendimento técnico.
+👨🏽‍🔧 Aliomar Alves dos Santos<br>
+Especialista em Saneamento Básico
 </div>
 
 </div>
@@ -851,4 +749,4 @@ ${alertas.map(a=>"• "+a).join("<br>")}
 </script>
 
 </body>
-
+</html>
