@@ -8,11 +8,22 @@
 
 <title>Água Justa ⚖️💧</title>
 
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#1f6f78">
+
+<meta property="og:title" content="Água Justa ⚖️💧">
+<meta property="og:description" content="Ferramenta de apoio à análise preliminar de consumo, cadastro e faturamento.">
+<meta property="og:image" content="icon-512.png">
+<meta property="og:type" content="website">
+
 <style>
 
 body{
 margin:0;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 background:linear-gradient(180deg,#d8f3dc,#dff4f7,#f3eadf);
 color:#23313a;
 }
@@ -21,7 +32,6 @@ color:#23313a;
 max-width:520px;
 margin:auto;
 padding:18px;
-min-height:100vh;
 background:#f8fffc;
 box-shadow:0 0 16px rgba(0,0,0,0.08);
 }
@@ -66,7 +76,7 @@ padding:13px;
 font-size:16px;
 border-radius:12px;
 border:1px solid #bdd9c7;
-background:#ffffff;
+background:#fff;
 outline:none;
 box-sizing:border-box;
 transition:.2s;
@@ -104,7 +114,7 @@ gap:10px;
 }
 
 .box{
-background:#ffffff;
+background:#fff;
 padding:12px;
 border-left:5px solid #5aa9c9;
 border-radius:12px;
@@ -125,7 +135,6 @@ border-left:5px solid #d6a93b;
 .vermelho{
 background:#ffe5e5;
 border-left:5px solid #c94b4b;
-font-weight:bold;
 }
 
 .pixbox{
@@ -145,6 +154,30 @@ margin-top:30px;
 color:#60706c;
 }
 
+@media print{
+
+body{
+background:white;
+}
+
+button,
+.nav{
+display:none;
+}
+
+.container{
+box-shadow:none;
+padding:0;
+max-width:100%;
+}
+
+.box{
+break-inside:avoid;
+page-break-inside:avoid;
+}
+
+}
+
 </style>
 
 </head>
@@ -161,19 +194,19 @@ color:#60706c;
 <p><b>Verifique se sua conta de água está correta de forma simples e rápida.</b></p>
 
 <p>
-📉 Identifica possíveis divergências de consumo e cadastro
+📉 Identifica possíveis divergências de consumo e cadastro<br>
 🚽 Verifique a cobrança de esgoto<br>
 🏠 Confira economias/residências cadastradas<br>
 🔎 Detecte possíveis erros cadastrais<br>
-📉 Entenda se o valor da conta está acima do esperado,
-
+📉 Entenda se o valor da conta está acima do esperado
 </p>
 
 <p>
 🚦 Controle e acompanhe seu consumo de forma simples, preventiva e contínua
 </p>
 
-📊 Ferramenta de apoio à análise preliminar de consumo, cadastro e faturamento
+<p>
+📊 Ferramenta de apoio à análise preliminar de consumo, cadastro e faturamento<br>
 📑 Pode auxiliar em revisões cadastrais
 </p>
 
@@ -194,23 +227,15 @@ Especialista em Saneamento Básico
 <h3>Dados principais</h3>
 
 <div class="campo">
-
 <label>Regional Sabesp</label>
 
 <select id="regional">
-
 <option value="MC">MC / ML / MO / MS</option>
-
 <option value="MN">MN Especial</option>
-
 <option value="RSRN">RS e RN</option>
-
 <option value="RR">RR</option>
-
 <option value="RARB">RA / RB / RG / RJ / RM / RT</option>
-
 <option value="RV">RV</option>
-
 </select>
 
 </div>
@@ -232,21 +257,13 @@ Especialista em Saneamento Básico
 <label>Categoria de uso</label>
 
 <select id="categoria">
-
 <option value="residencial_normal">Residencial normal</option>
-
 <option value="residencial_social">Residencial social</option>
-
 <option value="residencial_vulneravel">Residencial Vulnerável</option>
-
 <option value="comercial">Comercial</option>
-
 <option value="comercial_ongs">Comercial (ONG's)</option>
-
 <option value="industrial">Industrial</option>
-
 <option value="orgaos_publicos">Órgãos públicos</option>
-
 </select>
 
 </div>
@@ -258,39 +275,22 @@ Especialista em Saneamento Básico
 <select id="destino">
 
 <option value="rede_frente">Rede coletora - Frente</option>
-
 <option value="rede_lateral">Rede coletora - Lateral</option>
-
 <option value="rede_fundos">Rede coletora - Fundos</option>
-
 <option value="rede_servidao">Rede fundos com servidão</option>
-
 <option value="ramal_comunitario">Ramal comunitário</option>
-
 <option value="condominio">Rede condominial</option>
-
 <option value="elevatoria">Elevatória</option>
-
 <option value="interceptor">Interceptor</option>
-
 <option value="emissario">Emissário</option>
-
 <option value="fossa">Fossa séptica</option>
-
 <option value="fossa_negra">Fossa negra</option>
-
 <option value="sumidouro">Sumidouro</option>
-
 <option value="ceu_aberto">A céu aberto</option>
-
 <option value="corrego">Córrego</option>
-
 <option value="rio">Rio</option>
-
 <option value="galeria">Galeria pluvial</option>
-
-<option value="gap">GAP - Galeria de Águas Pluviais</option>
-
+<option value="gap">GAP</option>
 <option value="sem_coleta">Sem coleta</option>
 
 </select>
@@ -299,6 +299,7 @@ Especialista em Saneamento Básico
 
 <div class="campo">
 <label>Economias</label>
+
 <select id="economias">
 <option>1</option>
 <option>2</option>
@@ -306,10 +307,12 @@ Especialista em Saneamento Básico
 <option>4</option>
 <option>5</option>
 </select>
+
 </div>
 
 <div class="campo">
 <label>Moradores</label>
+
 <select id="moradores">
 <option>1</option>
 <option>2</option>
@@ -317,16 +320,19 @@ Especialista em Saneamento Básico
 <option>4</option>
 <option>5</option>
 </select>
+
 </div>
 
 <div class="campo">
 <label>Desempregados</label>
+
 <select id="desempregados">
 <option>0</option>
 <option>1</option>
 <option>2</option>
 <option>3</option>
 </select>
+
 </div>
 
 <div class="campo">
@@ -346,17 +352,6 @@ Especialista em Saneamento Básico
 
 <h3>Consumo</h3>
 
-<div class="box verde">
-
-<b>📊 Tarifas Vigentes ARSESP / SABESP</b><br><br>
-
-💧 Tarifação progressiva por faixa<br>
-🏢 Valores variam por regional<br>
-🚽 Esgoto calculado separadamente<br>
-📍 Região e categoria consideradas
-
-</div>
-
 <div class="campo">
 <label>Leitura inicial</label>
 <input id="li" type="number">
@@ -371,13 +366,45 @@ Especialista em Saneamento Básico
 
 <div class="nav">
 <button onclick="next(2)">Voltar</button>
-<button onclick="calcular(); next(4)">Calcular</button>
+<button onclick="next(4)">Próximo</button>
 </div>
 
 </div>
 
 <!-- TELA 4 -->
 <div class="tela" id="t4">
+
+<h3>Dados do Cliente</h3>
+
+<div class="campo">
+<label>Nome do cliente</label>
+<input id="cliente" type="text">
+</div>
+
+<div class="campo">
+<label>Número do Fornecimento/PDE/RGI</label>
+<input id="ligacao_num" type="text">
+</div>
+
+<div class="campo">
+<label>Endereço</label>
+<input id="endereco" type="text">
+</div>
+
+<div class="campo">
+<label>Observações técnicas Hidrômetro</label>
+<input id="obs" type="text">
+</div>
+
+<div class="nav">
+<button onclick="next(3)">Voltar</button>
+<button onclick="calcular(); next(5)">Gerar laudo</button>
+</div>
+
+</div>
+
+<!-- TELA 5 -->
+<div class="tela" id="t5">
 
 <h3>Resultado</h3>
 
@@ -398,8 +425,6 @@ document.getElementById("t"+n)
 .classList.add("ativa");
 
 }
-
-/* ========= TARIFAS ========= */
 
 const tarifas={
 
@@ -433,91 +458,6 @@ esgoto:[
 {l:30,v:3.48},
 {l:50,v:4.97},
 {l:Infinity,v:5.49}
-]
-}
-},
-
-MN:{
-residencial_normal:{
-agua:[
-{l:10,v:16.82,f:true},
-{l:20,v:2.35},
-{l:50,v:3.61},
-{l:Infinity,v:4.31}
-],
-esgoto:[
-{l:10,v:13.48,f:true},
-{l:20,v:1.86},
-{l:50,v:2.87},
-{l:Infinity,v:3.43}
-]
-}
-},
-
-RSRN:{
-residencial_normal:{
-agua:[
-{l:10,v:16.82,f:true},
-{l:20,v:2.35},
-{l:50,v:3.11},
-{l:Infinity,v:4.21}
-],
-esgoto:[
-{l:10,v:16.82,f:true},
-{l:20,v:2.35},
-{l:50,v:3.11},
-{l:Infinity,v:4.21}
-]
-}
-},
-
-RR:{
-residencial_normal:{
-agua:[
-{l:10,v:16.82,f:true},
-{l:20,v:2.35},
-{l:50,v:3.61},
-{l:Infinity,v:4.31}
-],
-esgoto:[
-{l:10,v:16.82,f:true},
-{l:20,v:2.35},
-{l:50,v:3.61},
-{l:Infinity,v:4.31}
-]
-}
-},
-
-RARB:{
-residencial_normal:{
-agua:[
-{l:10,v:16.82,f:true},
-{l:20,v:2.35},
-{l:50,v:3.61},
-{l:Infinity,v:4.31}
-],
-esgoto:[
-{l:10,v:13.48,f:true},
-{l:20,v:1.86},
-{l:50,v:2.87},
-{l:Infinity,v:3.43}
-]
-}
-},
-
-RV:{
-residencial_normal:{
-agua:[
-{l:10,v:16.82,f:true},
-{l:20,v:2.35},
-{l:50,v:3.61},
-{l:Infinity,v:4.31}
-],
-esgoto:[
-{l:10,v:13.48,f:true},
-{l:20,v:1.86},
-{l:50,v:2.87},
-{l:Infinity,v:3.43}
 ]
 }
 }
@@ -576,39 +516,39 @@ campo.value='R$ '+v;
 function calcular(){
 
 let mor=+document.getElementById("moradores").value||1;
-
 let eco=+document.getElementById("economias").value||1;
-
 let des=+document.getElementById("desempregados").value||0;
 
 let renda=document.getElementById("renda").value||"";
 
 let li=+document.getElementById("li").value||0;
-
 let lf=+document.getElementById("lf").value||0;
 
 let regional=document.getElementById("regional").value;
-
 let ligacao=document.getElementById("ligacao").value;
-
 let categoria=document.getElementById("categoria").value;
-
 let dest=document.getElementById("destino").value;
+
+let cliente=document.getElementById("cliente").value || "-";
+let ligacaoNum=document.getElementById("ligacao_num").value || "-";
+let endereco=document.getElementById("endereco").value || "-";
+let obs=document.getElementById("obs").value || "-";
 
 let consumo=lf-li;
 
-if(consumo<=0) consumo=mor*5;
+if(consumo<=0){
+consumo=mor*5;
+}
 
 let consumoPessoa=consumo/mor;
-
 let consumoEco=consumo/eco;
 
-let tabela=
-tarifas[regional][categoria] ||
-tarifas["MC"]["residencial_normal"];
+let tabela =
+(tarifas[regional] && tarifas[regional][categoria])
+? tarifas[regional][categoria]
+: tarifas["MC"]["residencial_normal"];
 
 let agua=0;
-
 let esgoto=0;
 
 if(ligacao==="agua"){
@@ -621,12 +561,14 @@ if(ligacao==="agua_esgoto"){
 
 agua=calc(consumoEco,tabela.agua);
 
-if(dest.includes("rede")
+if(
+dest.includes("rede")
 ||dest==="condominio"
 ||dest==="elevatoria"
 ||dest==="interceptor"
 ||dest==="emissario"
-||dest==="ramal_comunitario"){
+||dest==="ramal_comunitario"
+){
 
 esgoto=calc(consumoEco,tabela.esgoto);
 
@@ -648,17 +590,17 @@ alertas.push("🔴 Possível vazamento, verifique suas instalações.");
 
 }else if(consumoPessoa>10){
 
-alertas.push("🟡 Acima da média");
+alertas.push("🟡 Consumo acima da média.");
 
 }else{
 
-alertas.push("🟢 Consumo normal");
+alertas.push("🟢 Consumo dentro da média.");
 
 }
 
 if((Number(renda.replace(/\D/g,""))<200000)||des>0){
 
-alertas.push("💙 Tarifa social possível");
+alertas.push("💙 Possível enquadramento em tarifa social.");
 
 }
 
@@ -674,16 +616,52 @@ dest==="gap" ||
 dest==="sem_coleta"
 ){
 
-alertas.push("🚫 Destino sem coleta pública de esgoto identificado");
+alertas.push("🚫 Destino sem coleta pública de esgoto.");
+
+}
+
+let inconsistencias=[];
+
+if(consumoPessoa<3){
+
+inconsistencias.push("Possível subutilização ou divergência cadastral.");
+
+}
+
+if(eco>mor){
+
+inconsistencias.push("Número de economias superior ao número de moradores.");
+
+}
+
+if(consumoEco>25){
+
+inconsistencias.push("Consumo elevado por economia.");
+
+}
+
+if(obs!=="-"){
+
+inconsistencias.push(obs);
 
 }
 
 document.getElementById("resultado").innerHTML=`
 
 <div class="box">
+<b>📊 RELATÓRIO TÉCNICO DE CONSUMO E CADASTRO</b>
+</div>
 
-<b>📊 LAUDO TÉCNICO — ARSESP</b>
+<div class="box">
+<b>Cliente:</b> ${cliente}
+</div>
 
+<div class="box">
+<b>Ligação:</b> ${ligacaoNum}
+</div>
+
+<div class="box">
+<b>Endereço:</b> ${endereco}
 </div>
 
 <div class="box">
@@ -707,7 +685,7 @@ Tipo de ligação: ${ligacao}
 </div>
 
 <div class="box">
-Categoria de uso: ${categoria.replaceAll("_"," ")}
+Categoria: ${categoria.replaceAll("_"," ")}
 </div>
 
 <div class="box">
@@ -722,9 +700,21 @@ Destino do esgoto: ${dest.replaceAll("_"," ")}
 Esgoto: R$ ${esgoto.toFixed(2)}
 </div>
 
-<div class="box">
+<div class="box verde">
+<b>Total estimado: R$ ${(agua+esgoto).toFixed(2)}</b>
+</div>
 
-<b>Total: R$ ${(agua+esgoto).toFixed(2)}</b>
+<div class="box amarelo">
+
+⚖️ Valores estimativos para apoio preliminar.<br><br>
+
+Pode haver diferenças decorrentes de:
+juros,
+tributos,
+arredondamentos,
+faixas tarifárias,
+critérios da concessionária
+e revisões cadastrais.
 
 </div>
 
@@ -736,16 +726,52 @@ ${alertas.map(a=>"• "+a).join("<br>")}
 
 </div>
 
-<button onclick="window.print()">
+<div class="box vermelho">
 
+<b>📌 POSSÍVEIS INCONSISTÊNCIAS</b><br><br>
+
+${inconsistencias.map(i=>"• "+i).join("<br>")}
+
+</div>
+
+<div class="pixbox">
+
+<div class="pixbox">
+
+<div class="pixbox">
+
+<b>💚 Apoie o Projeto Água Justa</b><br><br>
+
+<div id="pixcode">
+
+00020101021126810014BR.GOV.BCB.PIX2559pix-qr.mercadopago.com/instore/ol/v2/3Z9Uw36kNzTngKrqqG5UPL5204000053039865802BR5920INSTITUTO AGUA JUSTA6009SAO PAULO62080504mpis63043E4B
+
+</div>
+
+<button onclick="copiarPix()">
+
+💙 Copiar PIX
+
+</button>
+
+</div><button onclick="window.print()">
 📄 Imprimir Laudo
-
 </button>
 
 `;
 
 }
+function copiarPix(){
 
+let texto =
+document.getElementById("pixcode")
+.innerText;
+
+navigator.clipboard.writeText(texto);
+
+alert("PIX copiado com sucesso!");
+
+}
 </script>
 
 </body>
