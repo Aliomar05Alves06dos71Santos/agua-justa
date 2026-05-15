@@ -71,7 +71,7 @@ font-weight:bold;
 color:#35504d;
 }
 
-input,select{
+input,select,textarea{
 padding:13px;
 font-size:16px;
 border-radius:12px;
@@ -80,10 +80,17 @@ background:#fff;
 outline:none;
 box-sizing:border-box;
 transition:.2s;
+width:100%;
+}
+
+textarea{
+resize:vertical;
+min-height:80px;
 }
 
 input:focus,
-select:focus{
+select:focus,
+textarea:focus{
 border-color:#4caf50;
 box-shadow:0 0 6px rgba(76,175,80,0.25);
 }
@@ -120,6 +127,7 @@ border-left:5px solid #5aa9c9;
 border-radius:12px;
 margin-top:12px;
 box-shadow:0 2px 6px rgba(0,0,0,0.05);
+word-break:break-word;
 }
 
 .verde{
@@ -176,6 +184,14 @@ break-inside:avoid;
 page-break-inside:avoid;
 }
 
+#t5{
+display:block !important;
+}
+
+.tela:not(#t5){
+display:none !important;
+}
+
 }
 
 </style>
@@ -206,11 +222,8 @@ page-break-inside:avoid;
 </p>
 
 <p>
-📊 Ferramenta de apoio à análise preliminar de consumo, cadastro e faturamento<br>
-📑 Pode auxiliar em revisões cadastrais
+📊 Ferramenta de apoio à análise preliminar de consumo, cadastro e faturamento
 </p>
-
-<p>📆 Utilize sempre que quiser para acompanhar seu consumo</p>
 
 <button onclick="next(2)">Iniciar análise</button>
 
@@ -231,17 +244,15 @@ Especialista em Saneamento Básico
 
 <select id="regional">
 <option value="MC">MC / ML / MO / MS</option>
-<option value="MN">MN Especial</option>
-<option value="RSRN">RS e RN</option>
+<option value="MN">MN</option>
+<option value="RSRN">RS / RN</option>
 <option value="RR">RR</option>
 <option value="RARB">RA / RB / RG / RJ / RM / RT</option>
 <option value="RV">RV</option>
 </select>
-
 </div>
 
 <div class="campo">
-
 <label>Tipo de ligação</label>
 
 <select id="ligacao">
@@ -249,57 +260,51 @@ Especialista em Saneamento Básico
 <option value="agua_esgoto">Água e Esgoto</option>
 <option value="esgoto">Esgoto</option>
 </select>
-
 </div>
 
 <div class="campo">
-
-<label>Categoria de uso</label>
+<label>Categoria</label>
 
 <select id="categoria">
-<option value="residencial_normal">Residencial normal</option>
-<option value="residencial_social">Residencial social</option>
+<option value="residencial_normal">Residencial Normal</option>
+<option value="residencial_social">Residencial Social</option>
 <option value="residencial_vulneravel">Residencial Vulnerável</option>
 <option value="comercial">Comercial</option>
-<option value="comercial_ongs">Comercial (ONG's)</option>
+<option value="comercial_ongs">Comercial ONG</option>
 <option value="industrial">Industrial</option>
-<option value="orgaos_publicos">Órgãos públicos</option>
+<option value="orgaos_publicos">Órgãos Públicos</option>
 </select>
-
 </div>
 
 <div class="campo">
-
 <label>Destino do esgoto</label>
 
 <select id="destino">
 
-<option value="rede_frente">Rede coletora - Frente</option>
-<option value="rede_lateral">Rede coletora - Lateral</option>
-<option value="rede_fundos">Rede coletora - Fundos</option>
-<option value="rede_servidao">Rede fundos com servidão</option>
-<option value="ramal_comunitario">Ramal comunitário</option>
-<option value="condominio">Rede condominial</option>
+<option value="rede_frente">Rede Frente</option>
+<option value="rede_lateral">Rede Lateral</option>
+<option value="rede_fundos">Rede Fundos</option>
+<option value="rede_servidao">Rede Servidão</option>
+<option value="ramal_comunitario">Ramal Comunitário</option>
+<option value="condominio">Condominial</option>
 <option value="elevatoria">Elevatória</option>
 <option value="interceptor">Interceptor</option>
 <option value="emissario">Emissário</option>
-<option value="fossa">Fossa séptica</option>
-<option value="fossa_negra">Fossa negra</option>
+<option value="fossa">Fossa Séptica</option>
+<option value="fossa_negra">Fossa Negra</option>
 <option value="sumidouro">Sumidouro</option>
-<option value="ceu_aberto">A céu aberto</option>
+<option value="ceu_aberto">A Céu Aberto</option>
 <option value="corrego">Córrego</option>
 <option value="rio">Rio</option>
-<option value="galeria">Galeria pluvial</option>
+<option value="galeria">Galeria</option>
 <option value="gap">GAP</option>
-<option value="sem_coleta">Sem coleta</option>
+<option value="sem_coleta">Sem Coleta</option>
 
 </select>
-
 </div>
 
 <div class="campo">
 <label>Economias</label>
-
 <select id="economias">
 <option>1</option>
 <option>2</option>
@@ -307,12 +312,10 @@ Especialista em Saneamento Básico
 <option>4</option>
 <option>5</option>
 </select>
-
 </div>
 
 <div class="campo">
 <label>Moradores</label>
-
 <select id="moradores">
 <option>1</option>
 <option>2</option>
@@ -320,19 +323,16 @@ Especialista em Saneamento Básico
 <option>4</option>
 <option>5</option>
 </select>
-
 </div>
 
 <div class="campo">
 <label>Desempregados</label>
-
 <select id="desempregados">
 <option>0</option>
 <option>1</option>
 <option>2</option>
 <option>3</option>
 </select>
-
 </div>
 
 <div class="campo">
@@ -354,13 +354,13 @@ Especialista em Saneamento Básico
 
 <div class="campo">
 <label>Leitura inicial</label>
-<input id="li" type="number">
+<input id="li" type="number" min="0">
 <input id="di" type="date">
 </div>
 
 <div class="campo">
 <label>Leitura final</label>
-<input id="lf" type="number">
+<input id="lf" type="number" min="0">
 <input id="df" type="date">
 </div>
 
@@ -377,12 +377,12 @@ Especialista em Saneamento Básico
 <h3>Dados do Cliente</h3>
 
 <div class="campo">
-<label>Nome do cliente</label>
+<label>Nome</label>
 <input id="cliente" type="text">
 </div>
 
 <div class="campo">
-<label>Número do Fornecimento/PDE/RGI</label>
+<label>PDE / RGI / Fornecimento</label>
 <input id="ligacao_num" type="text">
 </div>
 
@@ -392,18 +392,20 @@ Especialista em Saneamento Básico
 </div>
 
 <div class="campo">
-<label>Observações técnicas Hidrômetro</label>
-<input id="obs" type="text">
+<label>Observações Técnicas</label>
+<textarea id="obs"></textarea>
 </div>
 
 <div class="nav">
 <button onclick="next(3)">Voltar</button>
-<button onclick="calcular(); next(5)">Gerar laudo</button>
+<button onclick="calcular();next(5)">
+Gerar análise
+</button>
 </div>
 
 </div>
 
-<!-- TELA 5 -->
+<!-- RESULTADO -->
 <div class="tela" id="t5">
 
 <h3>Resultado</h3>
@@ -429,73 +431,78 @@ document.getElementById("t"+n)
 const tarifas={
 
 MC:{
+
 residencial_normal:{
-agua:[
-{l:10,v:16.82,f:true},
-{l:20,v:2.63},
-{l:50,v:6.57},
-{l:Infinity,v:7.24}
-],
-esgoto:[
-{l:10,v:16.82,f:true},
-{l:20,v:2.63},
-{l:50,v:6.57},
-{l:Infinity,v:7.24}
-]
+agua:[{l:10,v:16.82,f:true},{l:20,v:2.63},{l:50,v:6.57},{l:Infinity,v:7.24}],
+esgoto:[{l:10,v:16.82,f:true},{l:20,v:2.63},{l:50,v:6.57},{l:Infinity,v:7.24}]
 },
 
 residencial_social:{
-agua:[
-{l:10,v:5.70,f:true},
-{l:20,v:0.99},
-{l:30,v:3.48},
-{l:50,v:4.97},
-{l:Infinity,v:5.49}
-],
-esgoto:[
-{l:10,v:5.70,f:true},
-{l:20,v:0.99},
-{l:30,v:3.48},
-{l:50,v:4.97},
-{l:Infinity,v:5.49}
-]
+agua:[{l:10,v:5.70,f:true},{l:20,v:0.99},{l:30,v:3.48},{l:50,v:4.97},{l:Infinity,v:5.49}],
+esgoto:[{l:10,v:5.70,f:true},{l:20,v:0.99},{l:30,v:3.48},{l:50,v:4.97},{l:Infinity,v:5.49}]
+},
+
+residencial_vulneravel:{
+agua:[{l:10,v:2.00,f:true},{l:20,v:0.50},{l:Infinity,v:2.00}],
+esgoto:[{l:10,v:2.00,f:true},{l:20,v:0.50},{l:Infinity,v:2.00}]
+},
+
+comercial:{
+agua:[{l:10,v:28.00,f:true},{l:20,v:7.50},{l:50,v:11.00},{l:Infinity,v:13.00}],
+esgoto:[{l:10,v:28.00,f:true},{l:20,v:7.50},{l:50,v:11.00},{l:Infinity,v:13.00}]
+},
+
+comercial_ongs:{
+agua:[{l:10,v:20.00,f:true},{l:20,v:5.50},{l:50,v:8.00},{l:Infinity,v:9.50}],
+esgoto:[{l:10,v:20.00,f:true},{l:20,v:5.50},{l:50,v:8.00},{l:Infinity,v:9.50}]
+},
+
+industrial:{
+agua:[{l:10,v:35.00,f:true},{l:20,v:9.00},{l:50,v:13.00},{l:Infinity,v:15.00}],
+esgoto:[{l:10,v:35.00,f:true},{l:20,v:9.00},{l:50,v:13.00},{l:Infinity,v:15.00}]
+},
+
+orgaos_publicos:{
+agua:[{l:10,v:24.00,f:true},{l:20,v:6.50},{l:50,v:10.00},{l:Infinity,v:12.00}],
+esgoto:[{l:10,v:24.00,f:true},{l:20,v:6.50},{l:50,v:10.00},{l:Infinity,v:12.00}]
 }
+
 }
 
 };
 
 function calc(c,tabela){
 
-let t=0;
-let a=0;
+let total=0;
+let atual=0;
 
-for(let x of tabela){
+for(let faixa of tabela){
 
-if(x.f){
+if(faixa.f){
 
-t+=x.v;
-a=10;
+total+=faixa.v;
+atual=10;
 continue;
 
 }
 
-if(c>a){
+if(c>atual){
 
-let u=Math.min(c,x.l)-a;
+let uso=Math.min(c,faixa.l)-atual;
 
-if(u>0){
+if(uso>0){
 
-t+=u*x.v;
-
-}
-
-a=x.l;
+total+=uso*faixa.v;
 
 }
 
+atual=faixa.l;
+
 }
 
-return t;
+}
+
+return total;
 
 }
 
@@ -515,38 +522,47 @@ campo.value='R$ '+v;
 
 function calcular(){
 
-let mor=+document.getElementById("moradores").value||1;
-let eco=+document.getElementById("economias").value||1;
+let mor=Math.max(1,+document.getElementById("moradores").value||1);
+
+let eco=Math.max(1,+document.getElementById("economias").value||1);
+
 let des=+document.getElementById("desempregados").value||0;
 
 let renda=document.getElementById("renda").value||"";
 
 let li=+document.getElementById("li").value||0;
+
 let lf=+document.getElementById("lf").value||0;
 
 let regional=document.getElementById("regional").value;
+
 let ligacao=document.getElementById("ligacao").value;
+
 let categoria=document.getElementById("categoria").value;
+
 let dest=document.getElementById("destino").value;
 
-let cliente=document.getElementById("cliente").value || "-";
-let ligacaoNum=document.getElementById("ligacao_num").value || "-";
-let endereco=document.getElementById("endereco").value || "-";
-let obs=document.getElementById("obs").value || "-";
+let cliente=document.getElementById("cliente").value||"-";
+
+let ligacaoNum=document.getElementById("ligacao_num").value||"-";
+
+let endereco=document.getElementById("endereco").value||"-";
+
+let obs=document.getElementById("obs").value||"-";
 
 let consumo=lf-li;
 
 if(consumo<=0){
+
 consumo=mor*5;
+
 }
 
 let consumoPessoa=consumo/mor;
+
 let consumoEco=consumo/eco;
 
-let tabela =
-(tarifas[regional] && tarifas[regional][categoria])
-? tarifas[regional][categoria]
-: tarifas["MC"]["residencial_normal"];
+let tabela=tarifas.MC[categoria] || tarifas.MC.residencial_normal;
 
 let agua=0;
 let esgoto=0;
@@ -586,7 +602,7 @@ let alertas=[];
 
 if(consumoPessoa>15){
 
-alertas.push("🔴 Possível vazamento, verifique suas instalações.");
+alertas.push("🔴 Possível vazamento.");
 
 }else if(consumoPessoa>10){
 
@@ -600,23 +616,23 @@ alertas.push("🟢 Consumo dentro da média.");
 
 if((Number(renda.replace(/\D/g,""))<200000)||des>0){
 
-alertas.push("💙 Possível enquadramento em tarifa social.");
+alertas.push("💙 Possível enquadramento social.");
 
 }
 
 if(
-dest==="fossa" ||
-dest==="fossa_negra" ||
-dest==="sumidouro" ||
-dest==="ceu_aberto" ||
-dest==="corrego" ||
-dest==="rio" ||
-dest==="galeria" ||
-dest==="gap" ||
-dest==="sem_coleta"
+dest==="fossa"
+||dest==="fossa_negra"
+||dest==="sumidouro"
+||dest==="ceu_aberto"
+||dest==="corrego"
+||dest==="rio"
+||dest==="galeria"
+||dest==="gap"
+||dest==="sem_coleta"
 ){
 
-alertas.push("🚫 Destino sem coleta pública de esgoto.");
+alertas.push("🚫 Sem coleta pública de esgoto.");
 
 }
 
@@ -624,13 +640,13 @@ let inconsistencias=[];
 
 if(consumoPessoa<3){
 
-inconsistencias.push("Possível subutilização ou divergência cadastral.");
+inconsistencias.push("Possível subutilização.");
 
 }
 
 if(eco>mor){
 
-inconsistencias.push("Número de economias superior ao número de moradores.");
+inconsistencias.push("Economias superiores ao número de moradores.");
 
 }
 
@@ -649,7 +665,12 @@ inconsistencias.push(obs);
 document.getElementById("resultado").innerHTML=`
 
 <div class="box">
-<b>📊 RELATÓRIO TÉCNICO DE CONSUMO E CADASTRO</b>
+<b>📊 ANÁLISE PRELIMINAR DE CONSUMO E CADASTRO</b>
+</div>
+
+<div class="box">
+<b>Data:</b>
+${new Date().toLocaleDateString('pt-BR')}
 </div>
 
 <div class="box">
@@ -685,11 +706,13 @@ Tipo de ligação: ${ligacao}
 </div>
 
 <div class="box">
-Categoria: ${categoria.replaceAll("_"," ")}
+Categoria:
+${categoria.replace(/_/g," ")}
 </div>
 
 <div class="box">
-Destino do esgoto: ${dest.replaceAll("_"," ")}
+Destino:
+${dest.replace(/_/g," ")}
 </div>
 
 <div class="box">
@@ -701,20 +724,14 @@ Esgoto: R$ ${esgoto.toFixed(2)}
 </div>
 
 <div class="box verde">
-<b>Total estimado: R$ ${(agua+esgoto).toFixed(2)}</b>
+<b>Total estimado:
+R$ ${(agua+esgoto).toFixed(2)}
+</b>
 </div>
 
 <div class="box amarelo">
 
-⚖️ Valores estimativos para apoio preliminar.<br><br>
-
-Pode haver diferenças decorrentes de:
-juros,
-tributos,
-arredondamentos,
-faixas tarifárias,
-critérios da concessionária
-e revisões cadastrais.
+⚖️ Valores estimativos para apoio preliminar.
 
 </div>
 
@@ -736,10 +753,6 @@ ${inconsistencias.map(i=>"• "+i).join("<br>")}
 
 <div class="pixbox">
 
-<div class="pixbox">
-
-<div class="pixbox">
-
 <b>💚 Apoie o Projeto Água Justa</b><br><br>
 
 <div id="pixcode">
@@ -754,24 +767,48 @@ ${inconsistencias.map(i=>"• "+i).join("<br>")}
 
 </button>
 
-</div><button onclick="window.print()">
-📄 Imprimir Laudo
+</div>
+
+<button onclick="window.print()">
+📄 Imprimir análise
 </button>
 
 `;
 
 }
+
 function copiarPix(){
 
-let texto =
-document.getElementById("pixcode")
-.innerText;
+let texto=document.getElementById("pixcode").innerText;
 
-navigator.clipboard.writeText(texto);
+navigator.clipboard.writeText(texto)
 
-alert("PIX copiado com sucesso!");
+.then(()=>{
+
+alert("PIX copiado!");
+
+})
+
+.catch(()=>{
+
+let area=document.createElement("textarea");
+
+area.value=texto;
+
+document.body.appendChild(area);
+
+area.select();
+
+document.execCommand("copy");
+
+document.body.removeChild(area);
+
+alert("PIX copiado!");
+
+});
 
 }
+
 </script>
 
 </body>
