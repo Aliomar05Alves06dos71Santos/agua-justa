@@ -1,4 +1,4 @@
-const CACHE_NAME = 'agua-justa-v1';
+const CACHE_NAME = 'agua-justa-v2';
 
 const FILES_TO_CACHE = [
   './',
