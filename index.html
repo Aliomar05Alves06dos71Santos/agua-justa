@@ -12,10 +12,10 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="manifest" href="manifest.json">
 
-<meta name="theme-color" content="#1f6f78">
+<meta name="theme-color" content="#0B3D91">
 
 <meta property="og:title" content="Água Justa ⚖️💧">
-<meta property="og:description" content="Ferramenta de apoio à análise preliminar de consumo, cadastro e faturamento.">
+<meta property="og:description" content="Ferramenta independente de apoio à análise preliminar de consumo, cadastro e faturamento.">
 <meta property="og:image" content="icon-512.png">
 <meta property="og:type" content="website">
 
@@ -24,16 +24,17 @@
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:linear-gradient(180deg,#d8f3dc,#dff4f7,#f3eadf);
-color:#23313a;
+background:linear-gradient(180deg,#dbeafe,#eff6ff,#f8fafc);
+color:#18323d;
 }
 
 .container{
 max-width:520px;
 margin:auto;
-padding:18px;
-background:#f8fffc;
-box-shadow:0 0 16px rgba(0,0,0,0.08);
+padding:16px;
+background:#ffffff;
+box-shadow:0 0 20px rgba(0,0,0,0.10);
+min-height:100vh;
 }
 
 .tela{
@@ -46,13 +47,78 @@ display:block;
 }
 
 @keyframes fade{
-from{opacity:0;transform:translateY(8px);}
-to{opacity:1;transform:translateY(0);}
+from{
+opacity:0;
+transform:translateY(8px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.topo-app{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:18px;
+}
+
+.logo-app{
+width:72px;
+height:72px;
+border-radius:50%;
+object-fit:cover;
+box-shadow:0 4px 12px rgba(0,0,0,0.18);
+background:#0B3D91;
+}
+
+.titulo-app h1{
+margin:0;
+font-size:28px;
+color:#0B3D91;
+}
+
+.titulo-app p{
+margin-top:5px;
+font-size:14px;
+color:#486581;
+line-height:1.4;
+}
+
+.etapas{
+display:flex;
+align-items:center;
+justify-content:center;
+margin:18px 0;
+}
+
+.etapa{
+width:34px;
+height:34px;
+border-radius:50%;
+background:#cbd5e1;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:14px;
+}
+
+.etapa.ativa{
+background:#0B3D91;
+}
+
+.linha{
+height:4px;
+width:35px;
+background:#cbd5e1;
 }
 
 h2,h3{
 text-align:center;
-color:#1f6f78;
+color:#0B3D91;
 }
 
 p{
@@ -68,10 +134,12 @@ margin-bottom:12px;
 label{
 margin-bottom:5px;
 font-weight:bold;
-color:#35504d;
+color:#1d3557;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
 padding:13px;
 font-size:16px;
 border-radius:12px;
@@ -81,6 +149,7 @@ outline:none;
 box-sizing:border-box;
 transition:.2s;
 width:100%;
+min-height:48px;
 }
 
 textarea{
@@ -91,8 +160,8 @@ min-height:80px;
 input:focus,
 select:focus,
 textarea:focus{
-border-color:#4caf50;
-box-shadow:0 0 6px rgba(76,175,80,0.25);
+border-color:#0B3D91;
+box-shadow:0 0 8px rgba(11,61,145,0.25);
 }
 
 button{
@@ -101,13 +170,14 @@ padding:14px;
 margin-top:10px;
 border:none;
 border-radius:12px;
-background:linear-gradient(135deg,#2d8f85,#4caf50);
+background:linear-gradient(135deg,#0B3D91,#1f8f4c);
 color:#fff;
 font-size:16px;
 font-weight:bold;
 cursor:pointer;
 transition:.2s;
-box-shadow:0 3px 8px rgba(0,0,0,0.12);
+box-shadow:0 4px 10px rgba(0,0,0,0.18);
+min-height:52px;
 }
 
 button:hover{
@@ -123,31 +193,31 @@ gap:10px;
 .box{
 background:#fff;
 padding:12px;
-border-left:5px solid #5aa9c9;
+border-left:5px solid #0B3D91;
 border-radius:12px;
 margin-top:12px;
-box-shadow:0 2px 6px rgba(0,0,0,0.05);
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
 word-break:break-word;
 }
 
 .verde{
-background:#e5f7e9;
-border-left:5px solid #4caf50;
+background:#e8f8ee;
+border-left:5px solid #1f8f4c;
 }
 
 .amarelo{
-background:#fff6d9;
+background:#fff8dc;
 border-left:5px solid #d6a93b;
 }
 
 .vermelho{
-background:#ffe5e5;
-border-left:5px solid #c94b4b;
+background:#ffeaea;
+border-left:5px solid #c0392b;
 }
 
 .pixbox{
-background:#2f3f3a;
-color:#7dffb2;
+background:#102a43;
+color:#8dffbf;
 padding:10px;
 font-size:12px;
 border-radius:8px;
@@ -159,7 +229,44 @@ margin-top:10px;
 text-align:center;
 font-size:13px;
 margin-top:30px;
-color:#60706c;
+color:#486581;
+}
+
+.cabecalho-relatorio{
+display:flex;
+align-items:center;
+gap:14px;
+margin-bottom:18px;
+}
+
+.logo-relatorio{
+width:78px;
+height:78px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.carimbo{
+border:3px dashed #0B3D91;
+padding:10px;
+text-align:center;
+font-weight:bold;
+color:#0B3D91;
+transform:rotate(-8deg);
+margin-top:10px;
+border-radius:10px;
+font-size:18px;
+}
+
+.bloqueio{
+background:#eff6ff;
+border:1px solid #bfd3f8;
+padding:14px;
+border-radius:12px;
+margin-top:14px;
+text-align:center;
+font-weight:bold;
+color:#0B3D91;
 }
 
 @media print{
@@ -205,31 +312,70 @@ display:none !important;
 <!-- TELA 1 -->
 <div class="tela ativa" id="t1">
 
-<h2>💧 Água Justa ⚖️💧</h2>
+<div class="topo-app">
 
-<p><b>Verifique se sua conta de água está correta de forma simples e rápida.</b></p>
+<img 
+src="logo.png"
+class="logo-app"
+alt="Logo Água Justa"
+>
 
-<p>
-📉 Identifica possíveis divergências de consumo e cadastro<br>
-🚽 Verifique a cobrança de esgoto<br>
-🏠 Confira economias/residências cadastradas<br>
-🔎 Detecte possíveis erros cadastrais<br>
-📉 Entenda se o valor da conta está acima do esperado
-</p>
+<div class="titulo-app">
 
-<p>
-🚦 Controle e acompanhe seu consumo de forma simples, preventiva e contínua
-</p>
+<h1>ÁGUA JUSTA ⚖️💧</h1>
 
 <p>
-📊 Ferramenta de apoio à análise preliminar de consumo, cadastro e faturamento
+Ferramenta independente de apoio
+à análise preliminar de consumo,
+cadastro e faturamento.
 </p>
 
-<button onclick="next(2)">Iniciar análise</button>
+</div>
+
+</div>
+
+<div class="etapas">
+
+<div class="etapa ativa">1</div>
+<div class="linha"></div>
+
+<div class="etapa">2</div>
+<div class="linha"></div>
+
+<div class="etapa">3</div>
+<div class="linha"></div>
+
+<div class="etapa">4</div>
+
+</div>
+
+<div class="box">
+
+📉 Identifica possíveis divergências de consumo e cadastro<br><br>
+
+🚽 Verifique cobrança de esgoto<br><br>
+
+🏠 Confira economias cadastradas<br><br>
+
+🔎 Detecte inconsistências técnicas<br><br>
+
+📊 Entenda se o valor está acima do esperado
+
+</div>
+
+<button onclick="nextTela(2)">
+Iniciar análise
+</button>
+
+<button onclick="nextTela(6)">
+📌 Serviços úteis
+</button>
 
 <div class="rodape">
+
 👨🏽‍🔧 Aliomar Alves dos Santos<br>
 Especialista em Saneamento Básico
+
 </div>
 
 </div>
@@ -301,10 +447,12 @@ Especialista em Saneamento Básico
 <option value="sem_coleta">Sem Coleta</option>
 
 </select>
+
 </div>
 
 <div class="campo">
 <label>Economias</label>
+
 <select id="economias">
 <option>1</option>
 <option>2</option>
@@ -312,10 +460,12 @@ Especialista em Saneamento Básico
 <option>4</option>
 <option>5</option>
 </select>
+
 </div>
 
 <div class="campo">
 <label>Moradores</label>
+
 <select id="moradores">
 <option>1</option>
 <option>2</option>
@@ -323,26 +473,43 @@ Especialista em Saneamento Básico
 <option>4</option>
 <option>5</option>
 </select>
+
 </div>
 
 <div class="campo">
 <label>Desempregados</label>
+
 <select id="desempregados">
 <option>0</option>
 <option>1</option>
 <option>2</option>
 <option>3</option>
 </select>
+
 </div>
 
 <div class="campo">
 <label>Renda familiar</label>
-<input id="renda" type="text" placeholder="R$ 0,00" oninput="formatarMoeda(this)">
+
+<input 
+id="renda"
+type="text"
+placeholder="R$ 0,00"
+oninput="formatarMoeda(this)"
+>
+
 </div>
 
 <div class="nav">
-<button onclick="next(1)">Voltar</button>
-<button onclick="next(3)">Próximo</button>
+
+<button onclick="nextTela(1)">
+Voltar
+</button>
+
+<button onclick="nextTela(3)">
+Próximo
+</button>
+
 </div>
 
 </div>
@@ -353,20 +520,33 @@ Especialista em Saneamento Básico
 <h3>Consumo</h3>
 
 <div class="campo">
+
 <label>Leitura inicial</label>
+
 <input id="li" type="number" min="0">
 <input id="di" type="date">
+
 </div>
 
 <div class="campo">
+
 <label>Leitura final</label>
+
 <input id="lf" type="number" min="0">
 <input id="df" type="date">
+
 </div>
 
 <div class="nav">
-<button onclick="next(2)">Voltar</button>
-<button onclick="next(4)">Próximo</button>
+
+<button onclick="nextTela(2)">
+Voltar
+</button>
+
+<button onclick="nextTela(4)">
+Próximo
+</button>
+
 </div>
 
 </div>
@@ -397,10 +577,15 @@ Especialista em Saneamento Básico
 </div>
 
 <div class="nav">
-<button onclick="next(3)">Voltar</button>
-<button onclick="calcular();next(5)">
+
+<button onclick="nextTela(3)">
+Voltar
+</button>
+
+<button onclick="calcular();nextTela(5)">
 Gerar análise
 </button>
+
 </div>
 
 </div>
@@ -408,9 +593,52 @@ Gerar análise
 <!-- RESULTADO -->
 <div class="tela" id="t5">
 
-<h3>Resultado</h3>
+<h3>Resultado da análise</h3>
 
 <div id="resultado"></div>
+
+</div>
+
+<!-- SERVIÇOS -->
+<div class="tela" id="t6">
+
+<h3>📌 Serviços úteis</h3>
+
+<div class="box">
+
+<button onclick="window.open('https://www.gov.br','_blank')">
+🏛️ gov.br
+</button>
+
+<button onclick="window.open('https://cadunico.dataprev.gov.br','_blank')">
+📋 CadÚnico
+</button>
+
+<button onclick="window.open('https://agenciavirtual.sabesp.com.br','_blank')">
+💧 Sabesp
+</button>
+
+<button onclick="window.open('https://www.arsesp.sp.gov.br','_blank')">
+⚙️ Arsesp
+</button>
+
+<button onclick="window.open('https://www.procon.sp.gov.br','_blank')">
+🛒 Procon
+</button>
+
+<button onclick="window.open('https://www.cnj.jus.br','_blank')">
+⚖️ Justiça
+</button>
+
+</div>
+
+<div class="nav">
+
+<button onclick="nextTela(1)">
+⬅️ Voltar
+</button>
+
+</div>
 
 </div>
 
@@ -418,7 +646,7 @@ Gerar análise
 
 <script>
 
-function next(n){
+function nextTela(n){
 
 document.querySelectorAll(".tela")
 .forEach(t=>t.classList.remove("ativa"));
@@ -433,38 +661,115 @@ const tarifas={
 MC:{
 
 residencial_normal:{
-agua:[{l:10,v:16.82,f:true},{l:20,v:2.63},{l:50,v:6.57},{l:Infinity,v:7.24}],
-esgoto:[{l:10,v:16.82,f:true},{l:20,v:2.63},{l:50,v:6.57},{l:Infinity,v:7.24}]
+agua:[
+{l:10,v:16.82,f:true},
+{l:20,v:2.63},
+{l:50,v:6.57},
+{l:Infinity,v:7.24}
+],
+
+esgoto:[
+{l:10,v:16.82,f:true},
+{l:20,v:2.63},
+{l:50,v:6.57},
+{l:Infinity,v:7.24}
+]
 },
 
 residencial_social:{
-agua:[{l:10,v:5.70,f:true},{l:20,v:0.99},{l:30,v:3.48},{l:50,v:4.97},{l:Infinity,v:5.49}],
-esgoto:[{l:10,v:5.70,f:true},{l:20,v:0.99},{l:30,v:3.48},{l:50,v:4.97},{l:Infinity,v:5.49}]
+agua:[
+{l:10,v:5.70,f:true},
+{l:20,v:0.99},
+{l:30,v:3.48},
+{l:50,v:4.97},
+{l:Infinity,v:5.49}
+],
+
+esgoto:[
+{l:10,v:5.70,f:true},
+{l:20,v:0.99},
+{l:30,v:3.48},
+{l:50,v:4.97},
+{l:Infinity,v:5.49}
+]
 },
 
 residencial_vulneravel:{
-agua:[{l:10,v:2.00,f:true},{l:20,v:0.50},{l:Infinity,v:2.00}],
-esgoto:[{l:10,v:2.00,f:true},{l:20,v:0.50},{l:Infinity,v:2.00}]
+agua:[
+{l:10,v:2.00,f:true},
+{l:20,v:0.50},
+{l:Infinity,v:2.00}
+],
+
+esgoto:[
+{l:10,v:2.00,f:true},
+{l:20,v:0.50},
+{l:Infinity,v:2.00}
+]
 },
 
 comercial:{
-agua:[{l:10,v:28.00,f:true},{l:20,v:7.50},{l:50,v:11.00},{l:Infinity,v:13.00}],
-esgoto:[{l:10,v:28.00,f:true},{l:20,v:7.50},{l:50,v:11.00},{l:Infinity,v:13.00}]
+agua:[
+{l:10,v:28.00,f:true},
+{l:20,v:7.50},
+{l:50,v:11.00},
+{l:Infinity,v:13.00}
+],
+
+esgoto:[
+{l:10,v:28.00,f:true},
+{l:20,v:7.50},
+{l:50,v:11.00},
+{l:Infinity,v:13.00}
+]
 },
 
 comercial_ongs:{
-agua:[{l:10,v:20.00,f:true},{l:20,v:5.50},{l:50,v:8.00},{l:Infinity,v:9.50}],
-esgoto:[{l:10,v:20.00,f:true},{l:20,v:5.50},{l:50,v:8.00},{l:Infinity,v:9.50}]
+agua:[
+{l:10,v:20.00,f:true},
+{l:20,v:5.50},
+{l:50,v:8.00},
+{l:Infinity,v:9.50}
+],
+
+esgoto:[
+{l:10,v:20.00,f:true},
+{l:20,v:5.50},
+{l:50,v:8.00},
+{l:Infinity,v:9.50}
+]
 },
 
 industrial:{
-agua:[{l:10,v:35.00,f:true},{l:20,v:9.00},{l:50,v:13.00},{l:Infinity,v:15.00}],
-esgoto:[{l:10,v:35.00,f:true},{l:20,v:9.00},{l:50,v:13.00},{l:Infinity,v:15.00}]
+agua:[
+{l:10,v:35.00,f:true},
+{l:20,v:9.00},
+{l:50,v:13.00},
+{l:Infinity,v:15.00}
+],
+
+esgoto:[
+{l:10,v:35.00,f:true},
+{l:20,v:9.00},
+{l:50,v:13.00},
+{l:Infinity,v:15.00}
+]
 },
 
 orgaos_publicos:{
-agua:[{l:10,v:24.00,f:true},{l:20,v:6.50},{l:50,v:10.00},{l:Infinity,v:12.00}],
-esgoto:[{l:10,v:24.00,f:true},{l:20,v:6.50},{l:50,v:10.00},{l:Infinity,v:12.00}]
+agua:[
+{l:10,v:24.00,f:true},
+{l:20,v:6.50},
+{l:50,v:10.00},
+{l:Infinity,v:12.00}
+],
+
+esgoto:[
+{l:10,v:24.00,f:true},
+{l:20,v:6.50},
+{l:50,v:10.00},
+{l:Infinity,v:12.00}
+]
 }
 
 }
@@ -522,33 +827,51 @@ campo.value='R$ '+v;
 
 function calcular(){
 
-let mor=Math.max(1,+document.getElementById("moradores").value||1);
+let mor=Math.max(
+1,
++document.getElementById("moradores").value||1
+);
 
-let eco=Math.max(1,+document.getElementById("economias").value||1);
+let eco=Math.max(
+1,
++document.getElementById("economias").value||1
+);
 
-let des=+document.getElementById("desempregados").value||0;
+let des=
++document.getElementById("desempregados").value||0;
 
-let renda=document.getElementById("renda").value||"";
+let renda=
+document.getElementById("renda").value||"";
 
-let li=+document.getElementById("li").value||0;
+let li=
++document.getElementById("li").value||0;
 
-let lf=+document.getElementById("lf").value||0;
+let lf=
++document.getElementById("lf").value||0;
 
-let regional=document.getElementById("regional").value;
+let regional=
+document.getElementById("regional").value;
 
-let ligacao=document.getElementById("ligacao").value;
+let ligacao=
+document.getElementById("ligacao").value;
 
-let categoria=document.getElementById("categoria").value;
+let categoria=
+document.getElementById("categoria").value;
 
-let dest=document.getElementById("destino").value;
+let dest=
+document.getElementById("destino").value;
 
-let cliente=document.getElementById("cliente").value||"-";
+let cliente=
+document.getElementById("cliente").value||"-";
 
-let ligacaoNum=document.getElementById("ligacao_num").value||"-";
+let ligacaoNum=
+document.getElementById("ligacao_num").value||"-";
 
-let endereco=document.getElementById("endereco").value||"-";
+let endereco=
+document.getElementById("endereco").value||"-";
 
-let obs=document.getElementById("obs").value||"-";
+let obs=
+document.getElementById("obs").value||"-";
 
 let consumo=lf-li;
 
@@ -562,7 +885,12 @@ let consumoPessoa=consumo/mor;
 
 let consumoEco=consumo/eco;
 
-let tabela=tarifas.MC[categoria] || tarifas.MC.residencial_normal;
+let tabelaRegional=
+tarifas[regional] || tarifas.MC;
+
+let tabela=
+tabelaRegional[categoria]
+|| tabelaRegional.residencial_normal;
 
 let agua=0;
 let esgoto=0;
@@ -614,7 +942,10 @@ alertas.push("🟢 Consumo dentro da média.");
 
 }
 
-if((Number(renda.replace(/\D/g,""))<200000)||des>0){
+if(
+(Number(renda.replace(/\D/g,""))<200000)
+||des>0
+){
 
 alertas.push("💙 Possível enquadramento social.");
 
@@ -640,19 +971,25 @@ let inconsistencias=[];
 
 if(consumoPessoa<3){
 
-inconsistencias.push("Possível subutilização.");
+inconsistencias.push(
+"Possível subutilização."
+);
 
 }
 
 if(eco>mor){
 
-inconsistencias.push("Economias superiores ao número de moradores.");
+inconsistencias.push(
+"Economias superiores ao número de moradores."
+);
 
 }
 
 if(consumoEco>25){
 
-inconsistencias.push("Consumo elevado por economia.");
+inconsistencias.push(
+"Consumo elevado por economia."
+);
 
 }
 
@@ -665,68 +1002,106 @@ inconsistencias.push(obs);
 document.getElementById("resultado").innerHTML=`
 
 <div class="box">
-<b>📊 ANÁLISE PRELIMINAR DE CONSUMO E CADASTRO</b>
+
+<div class="cabecalho-relatorio">
+
+<img 
+src="logo.png"
+class="logo-relatorio"
+>
+
+<div>
+
+<h2>
+ÁGUA JUSTA
+</h2>
+
+<p>
+ANÁLISE PRELIMINAR
+</p>
+
+</div>
+
+</div>
+
+<div class="carimbo">
+ESTILO PROCESSO
+</div>
+
 </div>
 
 <div class="box">
-<b>Data:</b>
+<b>📅 Data:</b>
 ${new Date().toLocaleDateString('pt-BR')}
 </div>
 
 <div class="box">
-<b>Cliente:</b> ${cliente}
+<b>👤 Cliente:</b>
+${cliente}
 </div>
 
 <div class="box">
-<b>Ligação:</b> ${ligacaoNum}
+<b>🔗 Ligação:</b>
+${ligacaoNum}
 </div>
 
 <div class="box">
-<b>Endereço:</b> ${endereco}
+<b>📍 Endereço:</b>
+${endereco}
 </div>
 
 <div class="box">
-Regional: ${regional}
+<b>🌎 Regional:</b>
+${regional}
 </div>
 
 <div class="box">
-Consumo: ${consumo} m³
+<b>💧 Consumo:</b>
+${consumo} m³
 </div>
 
 <div class="box">
-Por pessoa: ${consumoPessoa.toFixed(2)} m³
+<b>👥 Por pessoa:</b>
+${consumoPessoa.toFixed(2)} m³
 </div>
 
 <div class="box">
-Por economia: ${consumoEco.toFixed(2)} m³
+<b>🏠 Por economia:</b>
+${consumoEco.toFixed(2)} m³
 </div>
 
 <div class="box">
-Tipo de ligação: ${ligacao}
+<b>🚰 Tipo de ligação:</b>
+${ligacao}
 </div>
 
 <div class="box">
-Categoria:
+<b>📂 Categoria:</b>
 ${categoria.replace(/_/g," ")}
 </div>
 
 <div class="box">
-Destino:
+<b>🚽 Destino:</b>
 ${dest.replace(/_/g," ")}
 </div>
 
 <div class="box">
-Água: R$ ${agua.toFixed(2)}
+<b>💧 Água:</b>
+R$ ${agua.toFixed(2)}
 </div>
 
 <div class="box">
-Esgoto: R$ ${esgoto.toFixed(2)}
+<b>🚽 Esgoto:</b>
+R$ ${esgoto.toFixed(2)}
 </div>
 
 <div class="box verde">
-<b>Total estimado:
+
+<b>
+💰 Total estimado:
 R$ ${(agua+esgoto).toFixed(2)}
 </b>
+
 </div>
 
 <div class="box amarelo">
@@ -753,7 +1128,9 @@ ${inconsistencias.map(i=>"• "+i).join("<br>")}
 
 <div class="pixbox">
 
-<b>💚 Apoie o Projeto Água Justa</b><br><br>
+<b>
+💚 Apoie o Projeto Água Justa
+</b><br><br>
 
 <div id="pixcode">
 
@@ -769,8 +1146,19 @@ ${inconsistencias.map(i=>"• "+i).join("<br>")}
 
 </div>
 
+<div class="bloqueio">
+
+🔒 O RELATÓRIO COMPLETO
+SÓ PODE SER BAIXADO
+APÓS O PAGAMENTO
+DE R$ 4,99.
+
+</div>
+
 <button onclick="window.print()">
+
 📄 Imprimir análise
+
 </button>
 
 `;
@@ -779,7 +1167,8 @@ ${inconsistencias.map(i=>"• "+i).join("<br>")}
 
 function copiarPix(){
 
-let texto=document.getElementById("pixcode").innerText;
+let texto=
+document.getElementById("pixcode").innerText;
 
 navigator.clipboard.writeText(texto)
 
