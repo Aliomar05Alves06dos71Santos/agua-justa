@@ -1,11 +1,10 @@
 {
   "name": "Água Justa",
   "short_name": "Água Justa",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#0d47a1",
-  "theme_color": "#0d47a1",
-  "orientation": "portrait",
+  "background_color": "#0B2E4A",
+  "theme_color": "#0B2E4A",
   "icons": [
     {
       "src": "icon-192.png",
@@ -18,4 +17,4 @@
       "type": "image/png"
     }
   ]
-}              
+}
